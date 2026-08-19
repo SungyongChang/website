@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111111">
+<meta name="description" content="Sungyong Chang is an Assistant Professor of Management and Organizations at the Johnson Graduate School of Management, Cornell University. He studies how organizations decide under uncertainty and how those decisions determine who gets access to innovation.">
+<title>Sungyong Chang | Assistant Professor of Management, Cornell University</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#111111;
+  --bg-soft:#181818;
+  --bg-card:#1c1c1c;
+  --line:#2a2a2a;
+  --text:#eaeaea;
+  --text-soft:#a3a3a3;
+  --text-faint:#6f6f6f;
+  --accent:#e05252;
+  --accent-soft:rgba(224,82,82,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--accent-soft);color:var(--text)}
+a{color:inherit;text-decoration:none;transition:color .15s ease}
+a:hover{color:var(--accent)}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* ---------- Nav ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 40px;
+  background:rgba(17,17,17,.95);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s ease;
+}
+nav.scrolled{border-bottom-color:var(--line)}
+.nav-name{font-weight:600;font-size:15px;letter-spacing:.01em}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12.5px;color:var(--text-soft);
+  letter-spacing:.03em;
+}
+.nav-links a span{color:var(--text-faint);margin-right:6px}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-links a.active span{color:var(--accent)}
+.nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:22px;cursor:pointer}
+
+/* ---------- Hero ---------- */
+.hero-wrap{position:relative;overflow:hidden}
+#net{
+  position:absolute;inset:0;width:100%;height:100%;
+  display:block;opacity:1;
+}
+.hero-fade{
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(17,17,17,.1) 0%,rgba(17,17,17,0) 50%,var(--bg) 97%);
+}
+.hero{
+  position:relative;z-index:2;
+  min-height:92vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:120px 40px 60px;
+  max-width:1080px;margin:0 auto;
+}
+.hero-note{
+  margin-top:14px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;color:var(--text-faint);
+}
+.vis-switch{
+  margin-top:12px;display:flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-faint);
+}
+.vis-switch button{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  background:none;border:1px solid var(--line);border-radius:100px;
+  color:var(--text-soft);padding:4px 12px;cursor:pointer;
+  transition:all .15s ease;
+}
+.vis-switch button:hover{border-color:var(--accent);color:var(--accent)}
+.vis-switch button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.hero-kicker{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;color:var(--accent);
+  letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:28px;
+}
+.hero h1{
+  font-family:'Newsreader',Georgia,serif;
+  font-weight:400;
+  font-size:clamp(34px,5.4vw,62px);
+  line-height:1.18;
+  letter-spacing:-.01em;
+  max-width:880px;
+}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{
+  margin-top:32px;
+  font-size:17px;color:var(--text-soft);
+  max-width:620px;
+}
+.hero-scroll{
+  margin-top:72px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;color:var(--text-faint);
+  letter-spacing:.08em;
+}
+.hero-scroll::after{content:"↓";display:inline-block;margin-left:8px;animation:bob 2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+
+/* ---------- Sections ---------- */
+section{
+  max-width:1080px;margin:0 auto;
+  padding:96px 40px 32px;
+}
+.sec-head{
+  display:flex;align-items:baseline;gap:16px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:18px;margin-bottom:48px;
+}
+.sec-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:14px;color:var(--accent);
+}
+.sec-title{
+  font-family:'Newsreader',Georgia,serif;
+  font-weight:400;font-size:34px;letter-spacing:-.01em;
+}
+
+/* ---------- Info ---------- */
+.info-grid{display:grid;grid-template-columns:280px 1fr;gap:56px;align-items:start}
+.headshot{
+  width:100%;aspect-ratio:1/1;object-fit:cover;
+  border-radius:4px;
+  filter:grayscale(12%);
+}
+.info-caption{
+  margin-top:14px;font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;color:var(--text-faint);line-height:1.7;
+}
+.info-body p{margin-bottom:18px;color:var(--text);font-size:16.5px}
+.info-body p.soft{color:var(--text-soft)}
+.info-meta{
+  margin-top:36px;
+  display:grid;grid-template-columns:1fr 1fr;gap:32px;
+}
+.meta-block h4{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;font-weight:500;color:var(--text-faint);
+  text-transform:uppercase;letter-spacing:.1em;
+  margin-bottom:12px;
+}
+.meta-block ul{list-style:none}
+.meta-block li{font-size:14.5px;color:var(--text-soft);margin-bottom:8px;line-height:1.5}
+.meta-block li strong{color:var(--text);font-weight:500}
+.link-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px}
+.chip{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;color:var(--text-soft);
+  border:1px solid var(--line);border-radius:100px;
+  padding:7px 16px;
+  transition:all .15s ease;
+}
+.chip:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+
+/* ---------- Theme cards ---------- */
+.themes{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  margin-top:56px;
+}
+.theme-card{
+  background:var(--bg-soft);
+  border:1px solid var(--line);border-radius:8px;
+  padding:24px 22px 22px;
+  transition:border-color .2s ease,transform .2s ease;
+}
+.theme-card:hover{border-color:#3d3d3d;transform:translateY(-2px)}
+.theme-card svg{display:block;margin-bottom:16px}
+.theme-card h5{font-size:15px;font-weight:600;margin-bottom:7px}
+.theme-card p{font-size:13.5px;color:var(--text-soft);line-height:1.55}
+
+/* ---------- Reveal ---------- */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .hero-scroll::after{animation:none}
+}
+
+/* ---------- Research ---------- */
+.sub-head{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12.5px;font-weight:500;color:var(--text-faint);
+  text-transform:uppercase;letter-spacing:.12em;
+  margin:56px 0 8px;
+}
+.sub-head:first-of-type{margin-top:0}
+.pub{
+  display:grid;grid-template-columns:56px 1fr;gap:20px;
+  padding:22px 0;border-bottom:1px solid var(--line);
+}
+.pub:last-child{border-bottom:none}
+.pub-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;color:var(--text-faint);padding-top:3px;
+}
+.pub-title{font-size:16.5px;font-weight:600;line-height:1.45}
+.pub-title a:hover{color:var(--accent)}
+.pub-authors{font-size:14px;color:var(--text-soft);margin-top:5px}
+.pub-venue{font-size:14px;color:var(--text-soft);margin-top:3px}
+.pub-venue em{font-family:'Newsreader',Georgia,serif;font-size:15px;color:var(--text)}
+.tag{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px;letter-spacing:.04em;
+  color:var(--accent);background:var(--accent-soft);
+  border-radius:3px;padding:2px 8px;margin-left:8px;
+  vertical-align:1px;
+}
+.tag.neutral{color:var(--text-soft);background:var(--bg-card)}
+.pub-note{font-size:13px;color:var(--text-faint);margin-top:6px}
+
+/* ---------- Teaching ---------- */
+.teach-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 64px}
+.course{padding:18px 0;border-bottom:1px solid var(--line)}
+.course-title{font-size:16px;font-weight:600}
+.course-meta{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-faint);margin-top:5px}
+.award-list{list-style:none;margin-top:4px}
+.award-list li{
+  padding:12px 0;border-bottom:1px solid var(--line);
+  font-size:15px;color:var(--text-soft);
+}
+.award-list li strong{color:var(--text);font-weight:500}
+.award-year{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-faint)}
+
+/* ---------- CV ---------- */
+.cv-wrap{display:flex;flex-direction:column;gap:28px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:15px;font-weight:600;
+  background:var(--text);color:var(--bg);
+  border-radius:6px;padding:13px 26px;
+  transition:all .15s ease;width:fit-content;
+}
+.btn:hover{background:var(--accent);color:#fff}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- Footer ---------- */
+footer{
+  max-width:1080px;margin:64px auto 0;
+  padding:32px 40px 48px;
+  border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;color:var(--text-faint);
+}
+
+/* ---------- Responsive ---------- */
+@media(max-width:860px){
+  nav{padding:16px 22px}
+  .nav-links{
+    position:fixed;top:57px;right:0;left:0;
+    flex-direction:column;gap:0;
+    background:var(--bg);border-bottom:1px solid var(--line);
+    display:none;padding:8px 22px 16px;
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{display:block;padding:12px 0;font-size:14px}
+  .nav-toggle{display:block}
+  .hero{padding:110px 22px 40px;min-height:78vh}
+  section{padding:72px 22px 24px}
+  .info-grid{grid-template-columns:1fr;gap:36px}
+  .headshot{max-width:280px}
+  .info-meta{grid-template-columns:1fr}
+  .teach-grid{grid-template-columns:1fr}
+  .themes{grid-template-columns:1fr}
+  .pub{grid-template-columns:44px 1fr;gap:12px}
+  footer{padding:28px 22px 40px}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-name">Sungyong Chang</div>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#info"><span>01</span>Info</a></li>
+    <li><a href="#research"><span>02</span>Research</a></li>
+    <li><a href="#teaching"><span>03</span>Teaching</a></li>
+    <li><a href="#cv"><span>04</span>CV</a></li>
+  </ul>
+</nav>
+
+<div class="hero-wrap">
+  <canvas id="net"></canvas>
+  <div class="hero-fade"></div>
+  <header class="hero">
+    <div class="hero-kicker">Assistant Professor of Management &amp; Organizations · Cornell University</div>
+    <h1>How organizations decide under uncertainty, and how those decisions determine <em>who gets access to innovation</em>.</h1>
+    <p class="hero-sub">I study organizational decision-making in high-stakes settings such as healthcare, using large-scale data and computational models to trace how organizational processes unfold over time and how they generate differences in diffusion, performance, and access.</p>
+    <div class="hero-note" id="visCaption"></div>
+    <div class="vis-switch" aria-label="Background visual">
+      <span>Visual</span>
+      <button type="button" data-v="0">01 Diffusion</button>
+      <button type="button" data-v="1">02 Search</button>
+      <button type="button" data-v="2">03 Race</button>
+      <button type="button" data-v="3">04 Flow</button>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </header>
+</div>
+
+<section id="info">
+  <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Info</h2></div>
+  <div class="info-grid">
+    <div>
+      <img class="headshot" src="assets/photo.jpg" alt="Sungyong Chang">
+      <div class="info-caption">353 Sage Hall, 114 E Ave<br>Ithaca, NY 14853, USA</div>
+    </div>
+    <div class="info-body">
+      <p>Sungyong Chang is an Assistant Professor of Management and Organizations at the Samuel Curtis Johnson Graduate School of Management, Cornell University, where he also serves as Interim Academic Director of the Smith Family Business Initiative. Before joining Cornell, he was an Assistant Professor of Strategy and Entrepreneurship at London Business School.</p>
+      <p class="soft">His research examines how organizations decide under uncertainty, and how those decisions determine who gets access to innovation. His work spans organizational search, technological change, and the healthcare industry, with a particular focus on how firms allocate resources and how those choices shape the diffusion of new products, drugs, and technologies.</p>
+      <div class="info-meta">
+        <div class="meta-block">
+          <h4>Education</h4>
+          <ul>
+            <li><strong>Ph.D., Management</strong> (2018)<br>Columbia Business School, Columbia University</li>
+            <li><strong>M.S., Strategy &amp; International Business</strong> (2011)<br>Seoul National University</li>
+            <li><strong>B.A., Business &amp; Economics</strong> (2007, Valedictorian)<br>Seoul National University</li>
+          </ul>
+        </div>
+        <div class="meta-block">
+          <h4>Appointments</h4>
+          <ul>
+            <li><strong>Cornell University</strong> (2024&ndash;)<br>Assistant Professor of Management and Organizations, Johnson Graduate School of Management</li>
+            <li><strong>London Business School</strong> (2017&ndash;2024)<br>Assistant Professor of Strategy and Entrepreneurship</li>
+          </ul>
+        </div>
+      </div>
+      <div class="link-row">
+        <a class="chip" href="mailto:sc3427@cornell.edu">Email</a>
+        <a class="chip" href="https://scholar.google.com/citations?user=FAxodjsAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
+        <a class="chip" href="https://apps.business.cornell.edu/faculty-research/faculty/vita/sc3427" target="_blank" rel="noopener">Cornell Profile</a>
+        <a class="chip" href="https://www.linkedin.com/in/sungyong-chang-4b104835/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="themes">
+    <div class="theme-card">
+      <svg width="46" height="34" viewBox="0 0 46 34" fill="none" aria-hidden="true">
+        <path d="M1 30 C6 30 7 14 12 14 C16 14 16 24 20 24 C25 24 25 4 31 4 C36 4 36 18 40 18 C43 18 44 12 45 12" stroke="#6f6f6f" stroke-width="1.4"/>
+        <circle cx="31" cy="4" r="3" fill="#e05252"/>
+        <circle cx="12" cy="14" r="2.4" fill="#3d3d3d"/>
+      </svg>
+      <h5>Organizational Search</h5>
+      <p>How firms search rugged landscapes: decomposability, distant search, and the allocation of attention and resources under uncertainty.</p>
+    </div>
+    <div class="theme-card">
+      <svg width="46" height="34" viewBox="0 0 46 34" fill="none" aria-hidden="true">
+        <line x1="8" y1="26" x2="18" y2="10" stroke="#3d3d3d" stroke-width="1.2"/>
+        <line x1="18" y1="10" x2="30" y2="20" stroke="#3d3d3d" stroke-width="1.2"/>
+        <line x1="8" y1="26" x2="30" y2="20" stroke="#3d3d3d" stroke-width="1.2"/>
+        <line x1="30" y1="20" x2="40" y2="8" stroke="#e05252" stroke-width="1.4"/>
+        <circle cx="8" cy="26" r="3" fill="#6f6f6f"/>
+        <circle cx="18" cy="10" r="3" fill="#6f6f6f"/>
+        <circle cx="30" cy="20" r="3" fill="#e05252"/>
+        <circle cx="40" cy="8" r="3" fill="#e05252"/>
+      </svg>
+      <h5>Networks &amp; Diffusion</h5>
+      <p>How bridges integrate local clusters, how giant clusters form, and how network structure shapes what spreads and to whom.</p>
+    </div>
+    <div class="theme-card">
+      <svg width="46" height="34" viewBox="0 0 46 34" fill="none" aria-hidden="true">
+        <rect x="4" y="11" width="22" height="12" rx="6" stroke="#6f6f6f" stroke-width="1.4"/>
+        <line x1="15" y1="11" x2="15" y2="23" stroke="#6f6f6f" stroke-width="1.4"/>
+        <path d="M15 12 h5 a5 5 0 0 1 0 10 h-5 z" fill="#e05252" opacity=".85"/>
+        <path d="M36 8 v18 M27 17 h18" stroke="#3d3d3d" stroke-width="1.6"/>
+      </svg>
+      <h5>Innovation &amp; Access in Healthcare</h5>
+      <p>Drug development, expanded access, and clinical trials: when firms provide early access and who benefits from innovation.</p>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Research</h2></div>
+
+  <div class="sub-head">Publications &amp; Accepted Papers</div>
+  <div class="pub">
+    <div class="pub-num">[01]</div>
+    <div>
+      <div class="pub-title"><a href="https://ebm.bmj.com/content/early/2026/04/08/bmjebm-2025-114242.full" target="_blank" rel="noopener">The Seeding Trials: Examining Non-Scientific Purposes in Clinical Trials</a></div>
+      <div class="pub-authors">Kang, Lin, and Chang</div>
+      <div class="pub-venue"><em>BMJ Evidence-Based Medicine</em>, forthcoming</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[02]</div>
+    <div>
+      <div class="pub-title"><a href="https://doi.org/10.1037/apl0001360" target="_blank" rel="noopener">The Implications of Pay Range Transparency on Job Application Preferences and Negotiations</a></div>
+      <div class="pub-authors">Lee, Park, and Chang</div>
+      <div class="pub-venue"><em>Journal of Applied Psychology</em>, forthcoming</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[03]</div>
+    <div>
+      <div class="pub-title"><a href="https://www.oxfordbibliographies.com/display/document/obo-9780199846740/obo-9780199846740-0238.xml" target="_blank" rel="noopener">Artificial Intelligence and Organization Modeling</a></div>
+      <div class="pub-authors">Chang</div>
+      <div class="pub-venue"><em>Oxford Bibliographies in Management</em>, 2025</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[04]</div>
+    <div>
+      <div class="pub-title"><a href="https://www.sciencedirect.com/science/article/pii/S0048733324001057" target="_blank" rel="noopener">Dynamics of Imitation versus Innovation in Technological Leadership Change</a></div>
+      <div class="pub-authors">Chang, Kim, Song, and Lee</div>
+      <div class="pub-venue"><em>Research Policy</em> 53(9): 105056, 2024</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[05]</div>
+    <div>
+      <div class="pub-title"><a href="http://doi.org/10.1002/smj.3527" target="_blank" rel="noopener">Giant Cluster Formation and the Integrating Role of Bridges in Social Diffusion</a></div>
+      <div class="pub-authors">Chang, Lee, and Song</div>
+      <div class="pub-venue"><em>Strategic Management Journal</em> 44(12): 2950&ndash;2985, 2023</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[06]</div>
+    <div>
+      <div class="pub-title"><a href="https://onlinelibrary.wiley.com/doi/full/10.1002/smj.3479" target="_blank" rel="noopener">Two Faces of Decomposability in Organizational Search</a></div>
+      <div class="pub-authors">Chang</div>
+      <div class="pub-venue"><em>Strategic Management Journal</em> 44(7): 1616&ndash;1652, 2023</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[07]</div>
+    <div>
+      <div class="pub-title"><a href="https://pubsonline.informs.org/doi/pdf/10.1287/orsc.2021.1479" target="_blank" rel="noopener">Bottleneck Resources, Market Relatedness, and the Dynamics of Organizational Growth</a></div>
+      <div class="pub-authors">Chang, Eggers, and Keum</div>
+      <div class="pub-venue"><em>Organization Science</em> 33(3): 1049&ndash;1067, 2022</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[08]</div>
+    <div>
+      <div class="pub-title"><a href="https://ascpt.onlinelibrary.wiley.com/doi/abs/10.1002/cpt.2401" target="_blank" rel="noopener">Implementation of 21st Century Cures Act Expanded Access Policies Requirements</a></div>
+      <div class="pub-authors">Kang, Chang, Ross, and Miller</div>
+      <div class="pub-venue"><em>Clinical Pharmacology &amp; Therapeutics</em> 110(6): 1579&ndash;1584, 2021</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[09]</div>
+    <div>
+      <div class="pub-title"><a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/smj.2574" target="_blank" rel="noopener">Global Diversification Discount and Its Discontents</a></div>
+      <div class="pub-authors">Chang, Kogut, and Yang</div>
+      <div class="pub-venue"><em>Strategic Management Journal</em> 37(11): 2254&ndash;2274, 2016</div>
+    </div>
+  </div>
+
+  <div class="sub-head">Working Papers</div>
+  <div class="pub">
+    <div class="pub-num">[10]</div>
+    <div>
+      <div class="pub-title"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4885005" target="_blank" rel="noopener">When Do Firms Provide Early Access? Evidence from Expanded Access in the Oncology Drug Market, 1990&ndash;2020</a><span class="tag">R&amp;R · SMJ</span></div>
+      <div class="pub-authors">Sungyong Chang and Sukhun Kang</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[11]</div>
+    <div>
+      <div class="pub-title">Do Firms Differ in Their Capabilities for Distant Search? A Study of Wildcatters in Oil Exploration<span class="tag">R&amp;R · SMJ</span></div>
+      <div class="pub-authors">Divya Saxena, Sungyong Chang, and Sendil Ethiraj</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[12]</div>
+    <div>
+      <div class="pub-title"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4993926" target="_blank" rel="noopener">How Do Investors Shape Startups&rsquo; Response to New Market Opportunities?</a><span class="tag">R&amp;R · Org Science</span></div>
+      <div class="pub-authors">Sarath Balachandran, Sungyong Chang, and Sukhun Kang</div>
+      <div class="pub-note">2025 Academy of Management Conference Best Paper Proceedings</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[13]</div>
+    <div>
+      <div class="pub-title">Mind the Gap in Drug Development: Understanding the Whitespace Between Clinical Trials<span class="tag">R&amp;R · CP&amp;T</span></div>
+      <div class="pub-authors">Sukhun Kang, Sandra Barbosu, Fan Ye, and Sungyong Chang</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[14]</div>
+    <div>
+      <div class="pub-title"><a href="https://arxiv.org/abs/2510.07309" target="_blank" rel="noopener">Agent Bain vs. Agent McKinsey: A New Text-to-SQL Benchmark for the Business Domain</a><span class="tag">Under review · ACL</span></div>
+      <div class="pub-authors">Li, Tao, Hommel, D&ouml;nder, Chang, Mimno, and Jo</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[15]</div>
+    <div>
+      <div class="pub-title">Industry Cyclicality and Entrepreneurial Firms&rsquo; Resource Allocation Strategy: Evidence from the DRAM Industry, 2005&ndash;2014</div>
+      <div class="pub-authors">Sungyong Chang</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[16]</div>
+    <div>
+      <div class="pub-title">Reexamination of Ownership Structure and R&amp;D Investment in Family Businesses: Evidence from Korean Business Groups</div>
+      <div class="pub-authors">Sungyong Chang</div>
+    </div>
+  </div>
+
+  <div class="sub-head">Public Scholarship</div>
+  <div class="pub">
+    <div class="pub-num">[17]</div>
+    <div>
+      <div class="pub-title"><a href="https://theconversation.com/clinical-trials-that-are-actually-marketing-ploys-targeting-doctors-how-seeding-trials-put-profit-over-patients-280398" target="_blank" rel="noopener">Clinical Trials That Are Actually Marketing Ploys Targeting Doctors: How Seeding Trials Put Profit Over Patients</a></div>
+      <div class="pub-authors">Sukhun Kang, Ivan Lin, and Sungyong Chang</div>
+      <div class="pub-venue"><em>The Conversation</em>, May 2026</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[18]</div>
+    <div>
+      <div class="pub-title"><a href="https://hbr.org/2026/02/posting-a-wide-salary-range-can-deter-women-from-applying" target="_blank" rel="noopener">Posting a Wide Salary Range Can Deter Women from Applying</a></div>
+      <div class="pub-authors">Alice J. Lee, Tae-Youn Park, and Sungyong Chang</div>
+      <div class="pub-venue"><em>Harvard Business Review</em>, February 2026</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[19]</div>
+    <div>
+      <div class="pub-title"><a href="https://theincidentaleconomist.com/wordpress/measuring-biopharmaceutical-innovation-in-the-modern-era/" target="_blank" rel="noopener">Measuring Biopharmaceutical Innovation in the Modern Era</a></div>
+      <div class="pub-authors">Sukhun Kang, Sungyong Chang, Sandra Barbosu, and Frank David</div>
+      <div class="pub-venue"><em>The Incidental Economist</em>, August 2025</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[20]</div>
+    <div>
+      <div class="pub-title">Essays on Organization, Creativity, and Globalization</div>
+      <div class="pub-authors">Sungyong Chang</div>
+      <div class="pub-venue"><em>AIB Insights</em> 19(3): 3&ndash;6, 2019</div>
+    </div>
+  </div>
+
+  <div class="sub-head">Work in Progress</div>
+  <div class="pub">
+    <div class="pub-num">[21]</div>
+    <div>
+      <div class="pub-title">Dormant Resources: A Study of Cover Songs in the Music Industry<span class="tag neutral">Writing</span></div>
+      <div class="pub-authors">with Henning Piezunka</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[22]</div>
+    <div>
+      <div class="pub-title">Founding Team Attributes in Early Access to Investigational Oncology Drugs<span class="tag neutral">Data analysis</span></div>
+      <div class="pub-authors">with Forrest Briscoe and Jaewoo Lee</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[23]</div>
+    <div>
+      <div class="pub-title">When Do Firms Manufacture Their Products Abroad? Evidence from the CDMO Segment of the Pharmaceutical Industry<span class="tag neutral">Writing</span></div>
+      <div class="pub-authors">with Minji Lee</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[24]</div>
+    <div>
+      <div class="pub-title">The Impact of Private Equity Acquisitions on Healthcare Companies<span class="tag neutral">Data collection</span></div>
+      <div class="pub-authors">with Siddhartha Komati</div>
+    </div>
+  </div>
+  <div class="pub">
+    <div class="pub-num">[25]</div>
+    <div>
+      <div class="pub-title">A Minority-Game Perspective on Market Entry and Performance Dynamics<span class="tag neutral">Model development</span></div>
+      <div class="pub-authors">with Hisan Yang</div>
+    </div>
+  </div>
+</section>
+
+<section id="teaching">
+  <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Teaching</h2></div>
+
+  <div class="sub-head">Cornell University</div>
+  <div class="teach-grid">
+    <div class="course">
+      <div class="course-title">Dilemmas in Founding New Ventures</div>
+      <div class="course-meta">MBA · 2024&ndash;present</div>
+    </div>
+    <div class="course">
+      <div class="course-title">Family Enterprise Management and Governance</div>
+      <div class="course-meta">MBA · 2025&ndash;present</div>
+    </div>
+    <div class="course">
+      <div class="course-title">Entrepreneurial Management</div>
+      <div class="course-meta">Undergraduate · 2025&ndash;present</div>
+    </div>
+  </div>
+
+  <div class="sub-head">London Business School</div>
+  <div class="teach-grid">
+    <div class="course">
+      <div class="course-title">Strategic Management</div>
+      <div class="course-meta">EMBA · 2023&ndash;2024</div>
+    </div>
+    <div class="course">
+      <div class="course-title">Business Project</div>
+      <div class="course-meta">MBA · 2021&ndash;2022</div>
+    </div>
+    <div class="course">
+      <div class="course-title">Strategic Analysis, Strategy 1 &amp; Strategy 2</div>
+      <div class="course-meta">Masters in Management · 2017&ndash;2024</div>
+    </div>
+    <div class="course">
+      <div class="course-title">Business Strategy Analytics</div>
+      <div class="course-meta">Masters in Analytics and Management · 2019&ndash;2023</div>
+    </div>
+    <div class="course">
+      <div class="course-title">Behavioural Foundation of Strategy</div>
+      <div class="course-meta">PhD · 2018&ndash;2023</div>
+    </div>
+  </div>
+
+  <div class="sub-head">Teaching Awards</div>
+  <ul class="award-list">
+    <li><strong>Winner, Best Teacher Award (MiM)</strong>, London Business School <span class="award-year">2019, 2020, 2021, 2022</span></li>
+    <li><strong>Runner-up, Best Teacher Award (MiM)</strong>, London Business School <span class="award-year">2023, 2024</span></li>
+  </ul>
+
+  <div class="sub-head">Doctoral Thesis Committees</div>
+  <ul class="award-list">
+    <li><strong>Divya Saxena</strong> (LBS 2024), Co-advisor · Initial placement: Tilburg University</li>
+    <li><strong>Liinus Hietaniemi</strong> (LBS 2023), Committee member · Initial placement: IESE Business School</li>
+    <li><strong>Sukhun Kang</strong> (LBS 2023), Committee member · Initial placement: UC Santa Barbara</li>
+  </ul>
+</section>
+
+<section id="cv">
+  <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">CV</h2></div>
+  <div class="cv-wrap">
+    <div>
+      <a class="btn" href="assets/cv.pdf" target="_blank" rel="noopener">Download CV (PDF) ↓</a>
+    </div>
+    <div>
+      <div class="sub-head" style="margin-top:24px">Selected Honors</div>
+      <ul class="award-list">
+        <li><strong>Innovation and Entrepreneurship Best Paper Award</strong>, Industry Studies Association <span class="award-year">2026</span></li>
+        <li><strong>Sumantra Ghoshal Research and Practice Award</strong>, Academy of Management, STR Division <span class="award-year">2025</span></li>
+        <li><strong>Corporate and International Strategy Paper Award</strong>, Academy of Management, STR Division <span class="award-year">2025</span></li>
+        <li><strong>MK-AKMS Young Scholar Award</strong>, Association of Korean Management Scholars <span class="award-year">2023</span></li>
+        <li><strong>P. J. Buckley and M. Casson Dissertation Award</strong>, Academy of International Business <span class="award-year">2019</span></li>
+        <li><strong>Distinguished Student Paper Award</strong>, Academy of Management, STR Division <span class="award-year">2018</span></li>
+        <li><strong>&ldquo;That&rsquo;s Interesting!&rdquo; Award</strong>, Academy of International Business <span class="award-year">2015</span></li>
+      </ul>
+      <div class="sub-head" style="margin-top:40px">Editorial Service</div>
+      <ul class="award-list">
+        <li><strong>Editorial Review Board</strong>, Strategic Management Journal <span class="award-year">2019&ndash;</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>&copy; 2026 Sungyong Chang</div>
+  <div>Last updated August 18, 2026</div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+const toggle=document.getElementById('navToggle');
+const links=document.getElementById('navLinks');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>10)});
+toggle.addEventListener('click',()=>links.classList.toggle('open'));
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+const secs=document.querySelectorAll('section');
+const navAs=links.querySelectorAll('a');
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));
+    }
+  });
+},{rootMargin:'-40% 0px -55% 0px'});
+secs.forEach(s=>obs.observe(s));
+
+/* ---- scroll reveal ---- */
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.querySelectorAll('.pub,.sub-head,.info-grid,.theme-card,.course,.award-list li,.cv-wrap').forEach(el=>el.classList.add('reveal'));
+if(!reduced){
+  const rObs=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');rObs.unobserve(e.target)}});
+  },{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
+}else{
+  document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+}
+
+/* ---- interactive hero visuals: diffusion network / fitness landscape ---- */
+(function(){
+  const cv=document.getElementById('net');
+  const wrap=cv.parentElement;
+  const ctx=cv.getContext('2d');
+  const captionEl=document.getElementById('visCaption');
+  const btns=document.querySelectorAll('.vis-switch button');
+  const mouse={x:-9999,y:-9999,on:false};
+  let W,H,dpr,current;
+  const rand=(a,b)=>a+Math.random()*(b-a);
+
+  function sizeCanvas(){
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    W=wrap.clientWidth;H=wrap.clientHeight;
+    cv.width=W*dpr;cv.height=H*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  /* ---- shared helpers ---- */
+  const ACC='224,82,82';
+  const ease=u=>u<=0?0:u>=1?1:u*u*(3-2*u);
+  /* eased pointer: position lags the cursor, weight fades influence in/out */
+  const smouse={x:0,y:0,w:0};
+  function trackMouse(){
+    if(mouse.on){
+      if(smouse.w<0.01){smouse.x=mouse.x;smouse.y=mouse.y}
+      smouse.x+=(mouse.x-smouse.x)*0.11;
+      smouse.y+=(mouse.y-smouse.y)*0.11;
+      smouse.w+=(1-smouse.w)*0.07;
+    }else{
+      smouse.w*=0.93;
+      if(smouse.w<0.002)smouse.w=0;
+    }
+  }
+  /* softens the canvas over the text column so the hero copy always reads first */
+  function veil(k){
+    const g=ctx.createLinearGradient(0,0,W,0);
+    if(W<820){                                  /* narrow: the copy spans the canvas, so dim it all */
+      g.addColorStop(0,`rgba(0,0,0,${k*1.05})`);
+      g.addColorStop(0.6,`rgba(0,0,0,${k*0.62})`);
+      g.addColorStop(1,`rgba(0,0,0,${k*0.4})`);
+      ctx.globalCompositeOperation='destination-out';
+      ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+      ctx.globalCompositeOperation='source-over';
+      return;
+    }
+    g.addColorStop(0,`rgba(0,0,0,${k})`);
+    g.addColorStop(0.42,`rgba(0,0,0,${k*0.42})`);
+    g.addColorStop(0.76,'rgba(0,0,0,0)');
+    ctx.globalCompositeOperation='destination-out';
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation='source-over';
+  }
+  /* midpoint-quadratic smoothing: removes right-angle corners from polylines */
+  function smoothPath(xs,ys,n){
+    ctx.beginPath();
+    if(n<3){ctx.moveTo(xs[0],ys[0]);for(let i=1;i<n;i++)ctx.lineTo(xs[i],ys[i]);return}
+    ctx.moveTo(xs[0],ys[0]);
+    for(let i=1;i<n-1;i++){
+      ctx.quadraticCurveTo(xs[i],ys[i],(xs[i]+xs[i+1])/2,(ys[i]+ys[i+1])/2);
+    }
+    ctx.lineTo(xs[n-1],ys[n-1]);
+  }
+
+  /* ================= Visual 1: network diffusion ================= */
+  function Diffusion(){
+    const N=130,LINK=125,SPEED=0.22,MOUSE_R=190;
+    let nodes,adopted,tick,resetting;
+    let ripples=[];
+    function build(){
+      nodes=[];ripples=[];
+      for(let i=0;i<N;i++){
+        const base=1.3+Math.pow(Math.random(),2.4)*3.8;
+        nodes.push({x:rand(0,W),y:rand(0,H),vx:rand(-SPEED,SPEED),vy:rand(-SPEED,SPEED),a:0,f:0,r:base});
+      }
+      reset();
+    }
+    function reset(){
+      adopted=new Set();tick=0;resetting=false;
+      nodes.forEach(n=>{n.a=0;n.f=0});
+      const seed=Math.floor(Math.random()*N);
+      adopted.add(seed);nodes[seed].a=1;nodes[seed].f=1;
+    }
+    function convert(j){adopted.add(j);nodes[j].a=0.02;nodes[j].f=1}
+    function neighbors(i){
+      const out=[];const n=nodes[i];
+      for(let j=0;j<N;j++){
+        if(j===i)continue;
+        const m=nodes[j],dx=n.x-m.x,dy=n.y-m.y;
+        if(dx*dx+dy*dy<LINK*LINK)out.push(j);
+      }
+      return out;
+    }
+    function step(){
+      tick++;
+      const mw=smouse.w;
+      nodes.forEach(n=>{
+        if(mw>0.01){
+          const dx=smouse.x-n.x,dy=smouse.y-n.y,d2=dx*dx+dy*dy;
+          if(d2<MOUSE_R*MOUSE_R&&d2>1){
+            const d=Math.sqrt(d2),f=0.028*Math.pow(1-d/MOUSE_R,1.4)*mw;
+            n.vx+=dx/d*f;n.vy+=dy/d*f;
+          }
+        }
+        const sp=Math.hypot(n.vx,n.vy),cap=0.9;
+        if(sp>cap){n.vx*=cap/sp;n.vy*=cap/sp}
+        n.vx*=0.995;n.vy*=0.995;
+        n.x+=n.vx;n.y+=n.vy;
+        if(n.x<0||n.x>W)n.vx*=-1;
+        if(n.y<0||n.y>H)n.vy*=-1;
+        if(n.a>0&&n.a<1)n.a=Math.min(1,n.a+(1-n.a)*0.085+0.008);   /* eased adoption */
+        if(n.f>0.001)n.f*=0.955;else n.f=0;
+      });
+      for(let i=ripples.length-1;i>=0;i--){
+        const r=ripples[i];r.r+=(r.max-r.r)*0.055;r.al*=0.955;
+        if(r.al<0.02)ripples.splice(i,1);
+      }
+      if(tick%18===0){
+        const cur=[...adopted];
+        cur.forEach(i=>{
+          const nb=neighbors(i).filter(j=>!adopted.has(j));
+          if(nb.length&&Math.random()<0.7){
+            convert(nb[Math.floor(Math.random()*nb.length)]);
+          }
+        });
+        if(adopted.size>N*0.85&&!resetting){resetting=true;setTimeout(()=>{if(current===api)reset()},1600);}
+      }
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      for(let i=0;i<N;i++){
+        for(let j=i+1;j<N;j++){
+          const a=nodes[i],b=nodes[j];
+          const dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;
+          if(d2<LINK*LINK){
+            const t=1-Math.sqrt(d2)/LINK;
+            const t2=t*t*(3-2*t);                          /* eased link falloff */
+            const av=Math.min(a.a,b.a);
+            if(av>0.05){
+              ctx.strokeStyle=`rgba(${ACC},${(0.30*t2+0.07)*av})`;
+              ctx.lineWidth=0.8+0.5*av;
+            }else{
+              ctx.strokeStyle=`rgba(255,255,255,${0.10*t2+0.02})`;
+              ctx.lineWidth=0.8;
+            }
+            ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+          }
+        }
+      }
+      if(smouse.w>0.01){
+        const mw=smouse.w;
+        nodes.forEach(n=>{
+          const dx=smouse.x-n.x,dy=smouse.y-n.y,d2=dx*dx+dy*dy;
+          if(d2<MOUSE_R*MOUSE_R){
+            const t=1-Math.sqrt(d2)/MOUSE_R;
+            ctx.strokeStyle=`rgba(${ACC},${0.20*t*t*(3-2*t)*mw})`;
+            ctx.lineWidth=0.8;
+            ctx.beginPath();ctx.moveTo(smouse.x,smouse.y);ctx.lineTo(n.x,n.y);ctx.stroke();
+          }
+        });
+      }
+      ripples.forEach(r=>{
+        ctx.strokeStyle=`rgba(${ACC},${r.al})`;
+        ctx.lineWidth=1.2;
+        ctx.beginPath();ctx.arc(r.x,r.y,r.r,0,Math.PI*2);ctx.stroke();
+      });
+      nodes.forEach(n=>{
+        const r=n.r*(1+0.45*n.a+0.55*n.f);
+        if(n.a>0){
+          ctx.fillStyle=`rgba(${ACC},${0.40+0.55*n.a})`;
+          ctx.shadowColor=`rgba(${ACC},0.9)`;ctx.shadowBlur=(5+2.6*n.r)*n.a+10*n.f;
+        }else{
+          ctx.fillStyle=`rgba(255,255,255,${0.30+0.05*n.r})`;ctx.shadowBlur=0;
+        }
+        ctx.beginPath();ctx.arc(n.x,n.y,r,0,Math.PI*2);ctx.fill();
+        ctx.shadowBlur=0;
+      });
+      veil(0.30);
+    }
+    function onClick(p){
+      ripples.push({x:p.x,y:p.y,r:6,max:78,al:0.5});
+      let best=-1,bd=Infinity;
+      for(let i=0;i<N;i++){
+        const dx=nodes[i].x-p.x,dy=nodes[i].y-p.y,d2=dx*dx+dy*dy;
+        if(d2<bd){bd=d2;best=i}
+      }
+      if(best>=0&&!adopted.has(best))convert(best);
+      else if(best>=0){
+        neighbors(best).forEach(j=>{if(!adopted.has(j))convert(j)});
+      }
+    }
+    const api={build,step,draw,onClick,
+      caption:'An innovation diffusing through a network. Move your cursor to pull the network; click anywhere to seed a new one.'};
+    return api;
+  }
+
+  /* ================= Visual 2: shifting fitness landscape ================= */
+  function Landscape(){
+    const NR=17,PTS=170,WAVES=4;
+    let ridges,searchers,peaks,t=0;
+    function env(x){
+      const cx=W*0.62, s=W*0.34;
+      return Math.exp(-((x-cx)*(x-cx))/(2*s*s));
+    }
+    function build(){
+      ridges=[];peaks=[];t=0;
+      const top=H*0.16, bot=H*0.94;
+      for(let k=0;k<NR;k++){
+        const waves=[];
+        for(let i=0;i<WAVES;i++){
+          waves.push({
+            A:(20+Math.random()*42)/(i+1),
+            f:(0.9+Math.random()*1.6)*(i+1)*2*Math.PI/W,
+            p:Math.random()*Math.PI*2,
+            s:(Math.random()<0.5?-1:1)*(0.003+Math.random()*0.006)*(i+1)
+          });
+        }
+        ridges.push({y0:top+(bot-top)*k/(NR-1),waves});
+      }
+      searchers=[];
+      [4,8,12].forEach(k=>{
+        searchers.push({k,x:W*(0.25+Math.random()*0.5),trail:[],jt:0,jump:null,next:300+Math.random()*400});
+      });
+    }
+    const JD=36;                                     /* jump duration, frames */
+    function height(k,x){
+      const r=ridges[k];
+      let h=0;
+      for(const w of r.waves)h+=w.A*Math.sin(w.f*x+w.p+w.s*t);
+      h*=env(x);
+      for(const p of peaks){
+        const dk=Math.abs(k-p.k);
+        if(dk<4){
+          const fall=1-dk/4;
+          h+=p.amp*p.g*Math.exp(-((x-p.x)*(x-p.x))/(2*p.w*p.w))*fall*fall*(3-2*fall);
+        }
+      }
+      if(smouse.w>0.01){
+        const ky=ridges[k].y0,dy=Math.abs(ky-smouse.y);
+        if(dy<100){
+          const f=1-dy/100;
+          h+=36*smouse.w*Math.exp(-((x-smouse.x)*(x-smouse.x))/(2*74*74))*f*f*(3-2*f);
+        }
+      }
+      return h;
+    }
+    function yOf(k,x){return ridges[k].y0-height(k,x)}
+    function step(){
+      t++;
+      for(let i=peaks.length-1;i>=0;i--){
+        const p=peaks[i];
+        p.g=Math.min(1,p.g+0.06);                    /* peaks swell in rather than pop */
+        p.w+=0.10;                                    /* and slowly spread */
+        p.amp*=0.994;
+        if(p.amp<1.5)peaks.splice(i,1);
+      }
+      searchers.forEach(s=>{
+        if(s.jump){
+          s.jt++;
+          const u=Math.min(1,s.jt/JD);
+          s.x=s.jump.x0+(s.jump.x1-s.jump.x0)*ease(u);
+          if(u>=1){s.jump=null;s.jt=0}
+        }else{
+          const st=7;
+          const h0=height(s.k,s.x-st),h1=height(s.k,s.x+st);
+          const grad=Math.abs(h1-h0);
+          s.x+=(h1>h0?1:-1)*(0.55+Math.min(1.15,grad*0.22));   /* slows near the summit */
+          s.x=Math.max(20,Math.min(W-20,s.x));
+          s.next--;
+          if(s.next<=0){
+            let bx=s.x,bh=-1e9;
+            for(let q=0;q<14;q++){
+              const cand=20+Math.random()*(W-40);
+              const hh=height(s.k,cand);
+              if(hh>bh){bh=hh;bx=cand}
+            }
+            s.jump={x0:s.x,x1:bx};s.jt=0;
+            s.next=380+Math.random()*420;
+          }
+        }
+        s.trail.push({x:s.x,y:yOf(s.k,s.x)});
+        if(s.trail.length>46)s.trail.shift();
+      });
+    }
+    const px=new Float32Array(PTS+1),py=new Float32Array(PTS+1);
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      const bg=getComputedStyle(document.body).backgroundColor;
+      ctx.lineJoin='round';ctx.lineCap='round';
+      for(let k=0;k<NR;k++){
+        for(let i=0;i<=PTS;i++){          /* sample once, reuse for fill + stroke */
+          px[i]=i/PTS*W;py[i]=yOf(k,px[i]);
+        }
+        ctx.beginPath();
+        ctx.moveTo(px[0],py[0]);
+        for(let i=1;i<=PTS;i++)ctx.lineTo(px[i],py[i]);
+        ctx.lineTo(W,H+40);ctx.lineTo(0,H+40);ctx.closePath();
+        ctx.fillStyle=bg;ctx.fill();
+        smoothPath(px,py,PTS+1);
+        const depth=k/(NR-1);
+        const d2=depth*depth*(3-2*depth);
+        ctx.strokeStyle=`rgba(255,255,255,${0.08+0.26*d2})`;
+        ctx.lineWidth=0.75+0.55*d2;
+        ctx.stroke();
+      }
+      searchers.forEach(s=>{
+        const n=s.trail.length;
+        for(let i=1;i<n;i++){
+          const u=i/n,a=u*u;
+          ctx.strokeStyle=`rgba(${ACC},${0.46*a})`;
+          ctx.lineWidth=1.7*a+0.35;
+          ctx.beginPath();
+          ctx.moveTo(s.trail[i-1].x,s.trail[i-1].y);
+          ctx.lineTo(s.trail[i].x,s.trail[i].y);
+          ctx.stroke();
+        }
+        const y=yOf(s.k,s.x);
+        const ju=s.jump?Math.sin(Math.PI*Math.min(1,s.jt/JD)):0;
+        const lift=ju*28;
+        if(ju>0.02){                       /* faint arc of the leap in progress */
+          ctx.strokeStyle=`rgba(${ACC},${0.24*ju})`;
+          ctx.lineWidth=0.9;
+          ctx.beginPath();
+          ctx.moveTo(s.jump.x0,yOf(s.k,s.jump.x0));
+          ctx.quadraticCurveTo((s.jump.x0+s.jump.x1)/2,Math.min(yOf(s.k,s.jump.x0),yOf(s.k,s.jump.x1))-46,s.jump.x1,yOf(s.k,s.jump.x1));
+          ctx.stroke();
+        }
+        ctx.fillStyle=`rgba(${ACC},0.95)`;
+        ctx.shadowColor=`rgba(${ACC},0.85)`;ctx.shadowBlur=12+8*ju;
+        ctx.beginPath();ctx.arc(s.x,y-lift,4.2,0,Math.PI*2);ctx.fill();
+        ctx.shadowBlur=0;
+      });
+      veil(0.20);
+    }
+    function onClick(p){
+      let bk=0,bd=Infinity;
+      for(let k=0;k<NR;k++){
+        const d=Math.abs(ridges[k].y0-p.y);
+        if(d<bd){bd=d;bk=k}
+      }
+      peaks.push({k:bk,x:p.x,w:66,amp:74,g:0});
+    }
+    const api={build,step,draw,onClick,
+      caption:'Searchers on a shifting fitness landscape: local hill-climbing, occasional distant jumps. Move your cursor to raise the terrain; click to create a new peak.'};
+    return api;
+  }
+
+
+  /* ================= Visual 3: imitation vs innovation race ================= */
+  function Race(){
+    const F=6,SAMPLES=260,PAD_R=30;
+    let firms,tick,leader,pulses;
+    function build(){
+      firms=[];tick=0;pulses=[];leader=0;
+      for(let i=0;i<F;i++){
+        firms.push({
+          lv:rand(0,26),
+          rate:0.03+Math.random()*0.075,
+          dim:0.11+Math.random()*0.07,      /* each laggard sits at its own faint weight */
+          jump:null,
+          hist:[]
+        });
+      }
+      for(let k=0;k<SAMPLES*2+120;k++)step(true);   /* prefill with simulated history */
+    }
+    function sample(){firms.forEach(f=>{f.hist.push(f.lv);if(f.hist.length>SAMPLES)f.hist.shift()})}
+    function innovate(f,amt){
+      /* an innovation is released over ~half a second, so the riser is a curve, not a wall */
+      if(f.jump)f.jump.amt+=amt;
+      else f.jump={amt,dur:26+Math.random()*16,t:0,done:0};
+    }
+    function step(pre){
+      tick++;
+      const maxLv=Math.max(...firms.map(f=>f.lv));
+      firms.forEach(f=>{
+        f.lv+=f.rate*0.5;                      /* steady progress */
+        f.lv+=(maxLv-f.lv)*0.0011;             /* imitation: catch-up toward the leader */
+        if(f.jump){
+          f.jump.t++;
+          const u=Math.min(1,f.jump.t/f.jump.dur);
+          const done=ease(u)*f.jump.amt;
+          f.lv+=done-f.jump.done;
+          f.jump.done=done;
+          if(u>=1)f.jump=null;
+        }else if(Math.random()<0.0042){
+          innovate(f,15+Math.random()*26);     /* innovation: discrete but eased jump */
+        }
+      });
+      let li=0;
+      for(let i=1;i<F;i++)if(firms[i].lv>firms[li].lv)li=i;
+      if(li!==leader){leader=li;if(!pre)pulses.push({f:li,r:5,al:0.4})}
+      if(!pre){
+        for(let i=pulses.length-1;i>=0;i--){
+          const q=pulses[i];q.r+=(22-q.r)*0.06;q.al*=0.95;
+          if(q.al<0.03)pulses.splice(i,1);
+        }
+      }
+      if(tick%2===0)sample();
+    }
+    const xs=new Float32Array(SAMPLES),ys=new Float32Array(SAMPLES);
+    function scale(){
+      let mn=Infinity,mx=-Infinity;
+      firms.forEach(f=>f.hist.forEach(v=>{if(v<mn)mn=v;if(v>mx)mx=v}));
+      const pad=(mx-mn)*0.18+1;mn-=pad;mx+=pad;
+      return v=>H*0.88-(v-mn)/(mx-mn)*H*0.62;
+    }
+    function fade(rgb,a){
+      /* trajectories emerge out of the dark instead of cutting across the whole hero */
+      const g=ctx.createLinearGradient(0,0,W-PAD_R,0);
+      g.addColorStop(0,`rgba(${rgb},0)`);
+      g.addColorStop(0.45,`rgba(${rgb},${a*0.38})`);
+      g.addColorStop(1,`rgba(${rgb},${a})`);
+      return g;
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      const yOf=scale(),PW=W-PAD_R,n=firms[0].hist.length;
+      ctx.lineJoin='round';ctx.lineCap='round';
+      const order=firms.map((f,i)=>i).sort((a,b)=>(a===leader?1:0)-(b===leader?1:0));
+      order.forEach(idx=>{
+        const f=firms[idx],lead=idx===leader;
+        for(let i=0;i<n;i++){xs[i]=i/(SAMPLES-1)*PW;ys[i]=yOf(f.hist[i])}
+        smoothPath(xs,ys,n);
+        if(lead){
+          ctx.strokeStyle=fade(ACC,0.085);ctx.lineWidth=5;ctx.stroke();  /* soft halo */
+          ctx.strokeStyle=fade(ACC,0.80);ctx.lineWidth=1.5;ctx.stroke();
+        }else{
+          ctx.strokeStyle=fade('255,255,255',f.dim);ctx.lineWidth=0.8;ctx.stroke();
+        }
+        const hx=xs[n-1],hy=ys[n-1];
+        if(lead){
+          ctx.fillStyle=`rgba(${ACC},0.95)`;
+          ctx.shadowColor=`rgba(${ACC},0.9)`;ctx.shadowBlur=8;
+          ctx.beginPath();ctx.arc(hx,hy,3.1,0,Math.PI*2);ctx.fill();
+          ctx.shadowBlur=0;
+        }else{
+          ctx.fillStyle=`rgba(255,255,255,${0.22+f.dim*1.4})`;
+          ctx.beginPath();ctx.arc(hx,hy,1.9,0,Math.PI*2);ctx.fill();
+        }
+      });
+      pulses.forEach(q=>{                       /* a ring marks each change of leadership */
+        const f=firms[q.f];
+        ctx.strokeStyle=`rgba(${ACC},${q.al})`;
+        ctx.lineWidth=1;
+        ctx.beginPath();ctx.arc(PW,yOf(f.lv),q.r,0,Math.PI*2);ctx.stroke();
+      });
+      veil(0.40);
+    }
+    function onClick(p){
+      const yOf=scale();
+      let best=null,bd=Infinity;
+      firms.forEach(f=>{
+        const d=Math.abs(yOf(f.lv)-p.y);
+        if(d<bd){bd=d;best=f}
+      });
+      if(best)innovate(best,20+Math.random()*20);    /* user-triggered innovation */
+    }
+    const api={build,step,draw,onClick,
+      caption:'Technology races: imitators catch up, innovators jump ahead, and leadership changes hands. Click near a trajectory to trigger an innovation.'};
+    return api;
+  }
+
+  /* ================= Visual 4: bottleneck resource flow ================= */
+  function Flow(){
+    let P=320;
+    let parts,gy,gapPulse,t2,rings,press;
+    const bx=()=>W*0.60;
+    const baseGap=()=>Math.max(34,H*0.05);
+    function spawn(p,init){
+      p.x=init?rand(-W*0.2,W):rand(-W*0.34,-4);
+      p.y=rand(H*0.03,H*0.97);
+      p.vx=0.9+Math.random()*1.0;p.vy=0;p.passed=false;
+      p.r=0.85+Math.pow(Math.random(),1.7)*1.6;      /* mostly small, a few larger */
+      p.al=0.19+Math.random()*0.22;
+      p.q=0;p.flash=0;
+    }
+    function build(){
+      P=Math.max(120,Math.min(340,Math.round(W*H/3300)));   /* keep density constant across sizes */
+      parts=[];gy=H/2;gapPulse=0;t2=0;rings=[];press=0;
+      for(let i=0;i<P;i++){const p={};spawn(p,true);if(p.x>bx())p.passed=true;parts.push(p)}
+      for(let k=0;k<620;k++)step();      /* settle: the queue is already formed on arrival */
+    }
+    function gapH(){return baseGap()+110*ease(gapPulse)}
+    function step(){
+      t2++;
+      const idle=H/2+Math.sin(t2*0.0052)*H*0.21;
+      const target=idle+(smouse.y-idle)*smouse.w;     /* hover steers, eased in and out */
+      gy+=(target-gy)*0.03;
+      gapPulse*=0.972;
+      const B=bx(),G=gapH(),APR=320;
+      let qsum=0;
+      parts.forEach(p=>{
+        if(!p.passed){
+          const d=B-p.x;
+          if(d>0&&d<APR){
+            const n=1-d/APR,n2=n*n;
+            p.vy+=(gy-p.y)*0.0005*n2;                 /* streamlines bend gently toward the gap */
+            if(d<120){
+              if(Math.abs(p.y-gy)>G*0.9){
+                p.vx*=0.93;                           /* slow into the queue */
+                if(p.vx<0.34)p.vx=0.34;               /* but keep pressing on the wall */
+                p.q=Math.min(1,p.q+0.05);
+              }else{
+                p.vx+=0.06;                           /* aligned: accelerate through */
+                p.q*=0.88;
+              }
+            }
+          }else p.q*=0.95;
+          if(p.x+p.vx>=B){
+            if(Math.abs(p.y-gy)<=G){
+              p.passed=true;p.flash=1;p.q=0;
+              p.vx=Math.max(p.vx,1.0)+0.9;
+              p.vy*=0.5;
+              if(rings.length<7&&Math.random()<0.16)rings.push({y:p.y,r:3,al:0.3});
+            }else{
+              p.x=B-1.2-Math.random();p.vx*=0.12;
+              p.q=Math.min(1,p.q+0.07);
+              p.vy+=(gy>p.y?0.03:-0.03);              /* blocked: crawl along the wall */
+            }
+          }
+          qsum+=p.q;
+        }else{
+          p.vy+=rand(-0.045,0.045)+(p.x>B+140?rand(-0.05,0.05):0);   /* the jet fans out downstream */
+          p.vx+=(1.9-p.vx)*0.018;                     /* settle into a cruise */
+        }
+        if(p.flash>0.004)p.flash*=0.93;else p.flash=0;
+        p.vy*=0.958;
+        p.x+=p.vx;p.y+=p.vy;
+        if(p.y<1){p.y=1;p.vy*=-0.4}
+        if(p.y>H-1){p.y=H-1;p.vy*=-0.4}
+        if(p.x>W+26)spawn(p);
+      });
+      press+=(Math.min(1,qsum/45)-press)*0.05;        /* smoothed queue pressure */
+      for(let i=rings.length-1;i>=0;i--){
+        const r=rings[i];r.r+=(34-r.r)*0.07;r.al*=0.93;
+        if(r.al<0.02)rings.splice(i,1);
+      }
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      const B=bx(),G=gapH();
+      /* pressure haze building up against the constraint */
+      if(press>0.02){
+        const hg=ctx.createLinearGradient(B-210,0,B,0);
+        hg.addColorStop(0,`rgba(${ACC},0)`);
+        hg.addColorStop(0.6,`rgba(${ACC},${0.012*press})`);
+        hg.addColorStop(0.88,`rgba(${ACC},${0.045*press})`);
+        hg.addColorStop(1,`rgba(${ACC},${0.085*press})`);
+        ctx.fillStyle=hg;ctx.fillRect(B-210,0,210,H);
+      }
+      /* barrier: fades into the dark away from the opening */
+      const top=Math.max(0,gy-G),bot=Math.min(H,gy+G);
+      if(top>0){
+        const g1=ctx.createLinearGradient(0,0,0,top);
+        g1.addColorStop(0,'rgba(255,255,255,0.015)');
+        g1.addColorStop(0.6,'rgba(255,255,255,0.05)');
+        g1.addColorStop(1,'rgba(255,255,255,0.28)');
+        ctx.strokeStyle=g1;ctx.lineWidth=1.2;
+        ctx.beginPath();ctx.moveTo(B,0);ctx.lineTo(B,top);ctx.stroke();
+      }
+      if(bot<H){
+        const g2=ctx.createLinearGradient(0,bot,0,H);
+        g2.addColorStop(0,'rgba(255,255,255,0.28)');
+        g2.addColorStop(0.4,'rgba(255,255,255,0.05)');
+        g2.addColorStop(1,'rgba(255,255,255,0.015)');
+        ctx.strokeStyle=g2;ctx.lineWidth=1.2;
+        ctx.beginPath();ctx.moveTo(B,bot);ctx.lineTo(B,H);ctx.stroke();
+      }
+      /* burst rings at the opening */
+      ctx.lineWidth=1;
+      rings.forEach(r=>{
+        ctx.strokeStyle=`rgba(${ACC},${r.al})`;
+        ctx.beginPath();ctx.arc(B,r.y,r.r,0,Math.PI*2);ctx.stroke();
+      });
+      /* the two lips of the gap */
+      const lip=0.4+0.45*ease(gapPulse)+0.12*press;
+      ctx.fillStyle=`rgba(${ACC},${Math.min(0.95,lip)})`;
+      ctx.shadowColor=`rgba(${ACC},0.8)`;ctx.shadowBlur=9+10*ease(gapPulse);
+      ctx.beginPath();ctx.arc(B,gy-G,2.5,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(B,gy+G,2.5,0,Math.PI*2);ctx.fill();
+      ctx.shadowBlur=0;
+      ctx.lineCap='round';
+      parts.forEach(p=>{
+        const sp=p.vx;
+        if(p.passed){
+          const a=0.42+p.al*1.1+0.5*p.flash;
+          if(sp>0.9){
+            ctx.strokeStyle=`rgba(${ACC},${a*0.42})`;
+            ctx.lineWidth=p.r*0.95;
+            ctx.beginPath();ctx.moveTo(p.x-sp*4.4,p.y);ctx.lineTo(p.x,p.y);ctx.stroke();
+          }
+          ctx.fillStyle=`rgba(${ACC},${Math.min(1,a)})`;
+          if(p.flash>0.05){ctx.shadowColor=`rgba(${ACC},0.9)`;ctx.shadowBlur=10*p.flash}
+          ctx.beginPath();ctx.arc(p.x,p.y,p.r*(1+0.8*p.flash),0,Math.PI*2);ctx.fill();
+          ctx.shadowBlur=0;
+        }else{
+          const q=p.q,a=p.al+0.4*q*q;                    /* queue reads as brightness, not colour */
+          if(sp>0.6){
+            ctx.strokeStyle=`rgba(255,255,255,${a*0.42})`;
+            ctx.lineWidth=p.r*0.85;
+            ctx.beginPath();ctx.moveTo(p.x-sp*4.2,p.y);ctx.lineTo(p.x,p.y);ctx.stroke();
+          }
+          ctx.fillStyle=`rgba(255,255,255,${a})`;
+          ctx.beginPath();ctx.arc(p.x,p.y,p.r*(1+0.45*q),0,Math.PI*2);ctx.fill();
+        }
+      });
+      veil(0.48);
+    }
+    function onClick(p){
+      gapPulse=1;
+      rings.push({y:gy,r:6,al:0.5});
+    }
+    const api={build,step,draw,onClick,
+      caption:'Resources converging on a bottleneck: flows queue at the constraint, then burst through. Move your cursor to steer the opening; click to loosen it.'};
+    return api;
+  }
+
+  /* ================= engine ================= */
+  const registry=[Diffusion(),Landscape(),Race(),Flow()];
+  function activate(i){
+    current=registry[i];
+    sizeCanvas();
+    current.build();
+    captionEl.textContent=current.caption;
+    btns.forEach(b=>b.classList.toggle('on',+b.dataset.v===i));
+    if(reduced){for(let k=0;k<700;k++)current.step();current.draw();}
+  }
+  btns.forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();activate(+b.dataset.v)}));
+  function toLocal(e){
+    const r=wrap.getBoundingClientRect();
+    return {x:e.clientX-r.left,y:e.clientY-r.top};
+  }
+  wrap.addEventListener('mousemove',e=>{const p=toLocal(e);mouse.x=p.x;mouse.y=p.y;mouse.on=true});
+  wrap.addEventListener('mouseleave',()=>{mouse.on=false});
+  wrap.addEventListener('click',e=>{
+    if(e.target.closest('a,button'))return;
+    current.onClick(toLocal(e));
+  });
+  let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>activate(registry.indexOf(current)),200)});
+  activate(Math.floor(Math.random()*registry.length));   /* random visual per visit */
+  if(!reduced){
+    (function loop(){trackMouse();current.step();current.draw();requestAnimationFrame(loop)})();
+  }
+})();
+</script>
+</body>
+</html>

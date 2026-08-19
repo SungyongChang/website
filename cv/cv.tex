@@ -1,0 +1,214 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Sungyong Chang - Academic CV
+%% Compile with pdflatex (run twice for correct page count).
+%% Font: Bitstream Charter. Headings: titlesec + microtype tracking.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+% ---- Page geometry -------------------------------------------------
+\usepackage[letterpaper,margin=1in,top=0.9in,bottom=0.9in]{geometry}
+% ---- Fonts & microtypography ---------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage{charter}                        % Bitstream Charter text font
+\usepackage[tracking=true]{microtype}
+\SetTracking{encoding=*}{40}               % letterspacing used in headings
+% ---- Colors --------------------------------------------------------
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{1F3B57}   % deep navy for name, headings, rules
+\definecolor{rulecol}{HTML}{B9C2CC}  % soft gray-blue for hairline rules
+\definecolor{linkcol}{HTML}{215C88}  % restrained link blue
+\definecolor{softgray}{HTML}{555F6B} % contact line / dates
+% ---- Lists ---------------------------------------------------------
+\usepackage[shortlabels]{enumitem}
+\setlist{nosep}
+\setlength{\parindent}{0pt}
+% ---- Section headings (titlesec) -----------------------------------
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\bfseries\color{accent}}      % format
+  {}{0pt}                                     % label / sep
+  {\scshape\lsstyle}                          % before-code: small caps + tracking
+  [\vspace{1.5pt}{\color{rulecol}\titlerule[0.8pt]}] % after: hairline rule
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+% ---- Header rule / name --------------------------------------------
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\lfoot{\footnotesize\color{softgray}\scshape Sungyong Chang}
+\rfoot{\footnotesize\color{softgray}\arabic{page}\,/\,\pageref*{LastPage}}
+% ---- Links ---------------------------------------------------------
+\usepackage[hidelinks]{hyperref}
+\hypersetup{colorlinks=true,urlcolor=linkcol,linkcolor=linkcol,citecolor=linkcol}
+% ---- Helper: bibliography-style numbered list ----------------------
+\newenvironment{pubs}
+  {\begin{enumerate}[label={(\arabic*)},leftmargin=1.9em,labelsep=0.5em,
+     align=left,itemsep=5pt,topsep=3pt]}
+  {\end{enumerate}}
+% ---- Helper: institution / role block ------------------------------
+\newcommand{\role}[2]{\hspace*{1.2em}#1\hfill{\color{softgray}#2}\par}
+\newcommand{\org}[1]{\vspace{2pt}\textbf{#1}\par}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+% ===== Name & contact header ========================================
+{\Huge\bfseries\color{accent}Sungyong Chang}\\[4pt]
+{\color{softgray}\small
+353 Sage Hall, 114 E Ave, Ithaca, NY 14853, USA \quad$\cdot$\quad
+\href{mailto:sc3427@cornell.edu}{sc3427@cornell.edu} \quad$\cdot$\quad
+\href{http://www.sungyongchang.com}{www.sungyongchang.com}}
+\vspace{2pt}
+{\color{accent}\hrule height 1pt}
+\vspace{-2pt}
+% ===== Academic Position ============================================
+\section{Academic Position}
+\org{Cornell University, SC Johnson Graduate School of Management}
+\role{Assistant Professor of Management and Organizations}{2024--}
+\role{Interim Academic Director, Smith Family Business Initiative}{2025--}
+\hspace*{1.2em}Affiliations: Cornell Atkinson Center for Sustainability, Health Policy Center,\par
+\hspace*{2.4em}Cornell Center for Social Sciences\par
+\org{London Business School}
+\role{Assistant Professor of Strategy and Entrepreneurship}{2017--2024}
+% ===== Education ====================================================
+\section{Education}
+\org{Columbia University, Columbia Business School}
+\role{Ph.D., Management}{2018}
+\org{Seoul National University, Business School and College of Social Sciences}
+\role{M.S., Strategy and International Business}{2011}
+\role{B.A., Business and Economics (\emph{Valedictorian})}{2007}
+% ===== Interests ====================================================
+\section{Interests}
+\vspace{3pt}
+Innovation and Entrepreneurship, Computational Social Science
+% ===== Publications =================================================
+\section{Publications}
+\begin{pubs}
+\item Sukhun Kang, Ivan Lin, Sungyong Chang, forthcoming, \href{https://ebm.bmj.com/content/early/2026/04/08/bmjebm-2025-114242.full}{The seeding trials: Examining non-scientific purposes in clinical trials}, \textit{BMJ Evidence-based Medicine}.
+%\\
+%{\color{softgray}\footnotesize - Featured in \href{https://theconversation.com/clinical-trials-that-are-actually-marketing-ploys-targeting-doctors-how-seeding-trials-put-profit-over-patients-280398}{The Conversation}}
+\item Alice J. Lee, Tae-Youn Park, Sungyong Chang, forthcoming, \href{https://psycnet.apa.org/doiLanding?doi=10.1037\%2Fapl0001360}{The implications of pay range transparency on job application preferences and negotiations}, \textit{Journal of Applied Psychology}.\\
+{\color{softgray}\footnotesize - Featured in \href{https://www.forbes.com/sites/carolinefairchild/2026/03/09/women-arent-bad-negotiators-the-system-is-working-against-them/}{Forbes}, \href{https://hbr.org/2026/02/posting-a-wide-salary-range-can-deter-women-from-applying}{Harvard Business Review}, \href{https://www.thepersistent.com/these-laws-were-intended-to-help-correct-the-pay-gap-but-theyre-backfiring/}{The Persistent}, \href{https://www.hr-brew.com/stories/2026/03/23/broad-pay-ranges-affect-female-talent}{HR Brew}, \href{https://www.hrdive.com/news/wide-pay-band-women-workers/813968/}{HR Dive}, \href{https://www.marketplace.org/story/2026/03/19/how-effective-are-pay-transparency-laws-in-closing-the-wage-gap}{Marketplace}, \href{https://news.cornell.edu/stories/2026/03/job-listings-wide-pay-ranges-may-deter-female-applicants}{Cornell Chronicle}}
+%\\ {\color{softgray}\footnotesize - Practitioner Coverage: \href{https://www.berkshireassociates.com/blog/getting-pay-range-postings-right-what-new-research-tells-us?hs_amp=true}{Berkshire Associates}}
+\item Sungyong Chang, 2025, \href{https://www.oxfordbibliographies.com/display/document/obo-9780199846740/obo-9780199846740-0238.xml?rskey=afgonp&result=1&q=Artificial+Intelligence+and+Organization+Modeling#firstMatch}{Artificial intelligence and organization modeling}, \textit{Oxford Bibliographies in Management}, (Ed. Ricky Griffin), New York: Oxford University Press.
+\item Sungyong Chang, Hyunseob Kim, Jaeyong Song, Keun Lee, 2024, \href{https://www.sciencedirect.com/science/article/pii/S0048733324001057?dgcid=author}{Dynamics of imitation versus innovation in technological leadership change: Latecomers' catch-up strategies in diverse technological regimes}, \textit{Research Policy}, 53(9): 105056.
+%\\
+%{\color{softgray}\footnotesize - Featured in \href{https://business.cornell.edu/news/2024/12/19/to-succeed-latecomers-must-balance-imitation-and-innovation/}{Cornell BusinessFeed}}
+\item Sungyong Chang, Jeho Lee, Jaeyong Song, 2023, \href{http://doi.org/10.1002/smj.3527}{Giant cluster formation and integrating role of bridges in social diffusion}, \textit{Strategic Management Journal}, 44(12): 2950--2985.
+\item Sungyong Chang, 2023, \href{https://onlinelibrary.wiley.com/doi/10.1002/smj.3479}{Two faces of decomposability in organizational search: Evidence from singles vs. albums in the music industry 1995--2015}, \textit{Strategic Management Journal}, 44(17): 1616--1652.\\
+{\color{softgray}\footnotesize - 2018 \textit{Academy of Management Best Paper Proceedings}}
+\item Sungyong Chang, JP Eggers, Daniel Keum, 2022, \href{https://pubsonline.informs.org/doi/pdf/10.1287/orsc.2021.1479}{Bottleneck resources, market relatedness, and the dynamics of organizational growth}, \textit{Organization Science}, 33(3): 1049--1067.
+\item Sukhun Kang, Sungyong Chang, Joseph Ross, Jennifer E. Miller, 2021, \href{https://doi.org/10.1002/cpt.2401}{Implementation of 21st Century Cures Act expanded access policies requirements}, \textit{Clinical Pharmacology \& Therapeutics}, 110(6): 1579--1584.
+\item Sungyong Chang, Bruce Kogut, Jae-Suk Yang, 2016, \href{http://onlinelibrary.wiley.com/doi/10.1002/smj.2574/full}{Global diversification discount and its discontents: A bit of self-selection makes a world of difference}, \textit{Strategic Management Journal}, 37(11): 2254--2274.\\
+{\color{softgray}\footnotesize - 2015 \textit{Academy of Management Best Paper Proceedings}}
+\end{pubs}
+% ===== Public Scholarship ===========================================
+\section{Public Scholarship}
+\begin{pubs}
+\item Sukhun Kang, Ivan Lin, Sungyong Chang, 2026, \href{https://theconversation.com/clinical-trials-that-are-actually-marketing-ploys-targeting-doctors-how-seeding-trials-put-profit-over-patients-280398}{Clinical trials that are actually marketing ploys targeting doctors: how seeding trials put profit over patients}, \textit{The Conversation}.
+\item Alice J. Lee, Tae-Youn Park, Sungyong Chang, 2026, \href{https://hbr.org/2026/02/posting-a-wide-salary-range-can-deter-women-from-applying}{Posting a wide salary range can deter women from applying}, \textit{Harvard Business Review}.
+\item Sukhun Kang, Sungyong Chang, Sandra Barbosu, Frank David, 2025, \href{https://theincidentaleconomist.com/wordpress/measuring-biopharmaceutical-innovation-in-the-modern-era/}{Measuring biopharmaceutical innovation in the modern era}, \textit{The Incidental Economist}.
+\item Sungyong Chang, 2019, \href{https://www.proquest.com/docview/2677072019/fulltextPDF/658EB1CAFEC14AB0PQ/1?accountid=10267&sourcetype=Scholarly\%20Journals}{Essays on organization, creativity, and globalization}, \textit{AIB Insights}, 19(3): 3--6.
+\end{pubs}
+% ===== Working Papers ===============================================
+\section{Working Papers}
+\begin{pubs}
+\item Sungyong Chang, Sukhun Kang, \href{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4885005}{When do firms provide early access? Evidence from expanded access in the oncology drug market 1990--2020}, Revise and resubmit, \textit{Strategic Management Journal}.
+\item Divya Saxena, Sungyong Chang, Sendil Ethiraj, \href{https://sungyongchang.com/2024/07/03/does-the-motivation-for-distant-search-stem-from-capabilities-or-incentives-evidence-from-the-wildcatters-in-the-petroleum-industry/}{Do firms differ in their capabilities for distant search? A study of wildcatters in oil exploration}, Revise and resubmit, \textit{Strategic Management Journal}.
+\item Sarath Balachandran, Sungyong Chang, Sukhun Kang, \href{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4993926}{How do investors shape startups' response to new market opportunities?}, Revise and resubmit, \textit{Organization Science}.\\
+{\color{softgray}\footnotesize - 2025 \textit{Academy of Management Best Paper Proceedings}}
+\item Sukhun Kang, Sandra Barbosu, Fan Ye, Sungyong Chang, Mind the gap in drug development: Understanding the whitespace between clinical trials, Revise and resubmit, \textit{Clinical Pharmacology \& Therapeutics}.
+\item Yue Li, Ran Tao, Derek Hommel, Yusuf Denizay D\"onder, Sungyong Chang, David Mimno, Unso Eun Seo Jo, \href{https://arxiv.org/abs/2510.07309}{Agent Bain vs. Agent McKinsey: A new Text-to-SQL benchmark for the business domain}, Under review, \textit{Association of Computational Linguistics Rolling Review}.
+\item Sungyong Chang, \href{https://wordpress.com/post/sungyongchang.com/462}{Industry cyclicality and entrepreneurial firms' resource allocation strategy: Evidence from the DRAM industry 2005--2014}.
+\item Sungyong Chang, \href{https://wordpress.com/post/sungyongchang.com/721}{Reexamination of ownership structure and R\&D investment in family businesses: Evidence from Korean business groups}.
+\end{pubs}
+% ===== Work in Progress =============================================
+\section{Work in Progress}
+\begin{pubs}
+\item (with Minji Lee) When do firms manufacture their products abroad? Evidence from the CDMO segment of the pharmaceutical industry {\color{softgray}(Writing)}
+\item (with Forrest Briscoe and Jaewoo Lee) Founding team attributes in early access to investigational oncology drugs {\color{softgray}(Data analysis)}
+\item (with Henning Piezunka) Dormant resources: A study of cover songs in the music industry {\color{softgray}(Writing)}
+\item (with Siddhartha Komati) The impact of private equity acquisitions on healthcare companies {\color{softgray}(Data collection)}
+\item (with Hisan Yang) A minority-game perspective on market entry and performance dynamics {\color{softgray}(Model development)}
+\end{pubs}
+% ===== Teaching Awards ==============================================
+\section{Teaching Awards}
+\vspace{3pt}
+Winner, London Business School Best Teacher Award MiM (2022, 2021, 2020, 2019)\\
+Runner-up, London Business School Best Teacher Award MiM (2024, 2023)
+% ===== Teaching =====================================================
+\section{Teaching}
+\org{Cornell University}
+\hspace*{1.2em}(MBA) Dilemmas in Founding New Ventures \hfill {\color{softgray}2024--}\par
+\hspace*{1.2em}(MBA) Family Enterprise Management and Governance \hfill {\color{softgray}2025--}\par
+\hspace*{1.2em}(Undergraduate) Entrepreneurial Management \hfill {\color{softgray}2025--}\par
+\org{London Business School}
+\hspace*{1.2em}(PhD) Behavioural Foundation of Strategy \hfill {\color{softgray}2018--2023}\par
+\hspace*{1.2em}(EMBA) Strategic Management \hfill {\color{softgray}2023--2024}\par
+\hspace*{1.2em}(MBA) Business Project \hfill {\color{softgray}2021--2022}\par
+\hspace*{1.2em}(Masters in Management) Strategic Analysis, Strategy 1 \& Strategy 2 \hfill {\color{softgray}2017--2024}\par
+\hspace*{1.2em}(Masters in Analytics and Management) Business Strategy Analytics \hfill {\color{softgray}2019--2023}\par
+% ===== Doctoral Thesis Committees ===================================
+\section{Doctoral Thesis Committees}
+\vspace{3pt}
+(1) Divya Saxena (LBS 2024), Co-advisor, Initial Placement: Tilburg University\\
+(2) Liinus Hietaniemi (LBS 2023), Committee member, Initial Placement: IESE\\
+(3) Sukhun Kang (LBS 2023), Committee member, Initial Placement: UC Santa Barbara
+% ===== Invited Seminars =============================================
+\section{Invited Seminars, Workshops, Conferences}
+\vspace{3pt}
+(2026; planned ones*) Carnegie School of Organizational Learning (CSOL) Academy, Hitotsubashi University*, AOM Conference*\\[2pt]
+(2025) Austin Technology and Entrepreneurship Conference, SMS San Francisco\\[2pt]
+(2024) ESMT Berlin, Cornell University, UNSW, University of Sydney, New York University Grossman Medical School, UC Santa Barbara, Hong Kong Polytechnic University, HKUST, Yonsei University, Dartmouth Strategy Junior Summer Workshop, SMS Washington DC, AOM Conference, AIB Conference\\[2pt]
+(2023) Columbia Management Division Research Day, Sungkyunkwan University (SKKU), UC Santa Barbara, Junior Faculty OT Conference, Theoretical Organization Models Annual Meeting, Wharton People \& Organizations Conference, AOM Conference, SMS Toronto\\[2pt]
+(2022) Harvard-MIT Global Conference of Regulatory Science, New York University Grossman School of Medicine, University of Southern Denmark, Korea University, LBS Sumantra Ghoshal Conference, Theoretical Organization Models Conference, AOM Conference\\[2pt]
+(2021) KAIST, University of Texas Austin Technology \& Entrepreneurship Conference, Seoul National University, LBS Sumantra Ghoshal Conference, AOM Conference\\[2pt]
+(2020) Seoul National University, Strategy Science Conference, AIB Conference\\[2pt]
+(2019) University of Surrey, Dartmouth Strategy Junior Summer Workshop, London50 Conference, AOM Conference\\[2pt]
+(2018) Dartmouth Strategy Junior Summer Workshop, AOM Conference\\[2pt]
+(2017) London Business School, University of Wisconsin-Madison, University of Connecticut, AOM Conference\\[2pt]
+(2016) Harvard Business School, New York University, INSEAD Strategy Unit, INSEAD EFE Unit, Bocconi University, Boston University, HEC Paris, HKUST, Ohio State University, University of Minnesota, University of North Carolina - Chapel Hill, University of Washington - Seattle, AOM Conference
+% ===== Research Awards & Honors =====================================
+\section{Research Awards \& Honors}
+\vspace{3pt}
+Innovation and Entrepreneurship Best Paper Award, \textit{Industry Studies Association} (2026)\\
+Sumantra Ghoshal Research and Practice Award, \emph{Academy of Management - Strategic Management (STR) Division} (2025)\\
+Corporate and International Strategy Paper Award, \emph{Academy of Management - STR Division} (2025)\\
+MK-AKMS Young Scholar Award, \emph{Association of Korean Management Scholars} (2023)\\
+P. J. Buckley and M. Casson Dissertation Award, \emph{Academy of International Business} (2019)\\
+Nominee, William H. Newman Award for Best Paper Based on a Dissertation, \emph{Academy of Management} (2018)\\
+Distinguished Student Paper Award, \emph{Academy of Management - STR Division} (2018)\\
+Fundacao Dom Cabral Best Paper in Strategy/IB Theory Award, \emph{Academy of Management - International Management (IM) Division} (2015)\\
+``That's Interesting!'' Award, \emph{Academy of International Business} (2015)\\
+Best Student Paper Award, \emph{Academy of International Business Korea Chapter} (2015)\\
+SERI Best Student Paper Award, \emph{Association of Korean Management Scholars} (2014)\\
+Best Paper Award, \emph{Korean Society for Innovation Management and Economics} (2011)\\
+Best Paper Award, \emph{Korean Academic Society of Business Administration} (2007)\\
+Best Case Research Award, \emph{Seoul National University Business School} (2007)\\
+Best Academic Achievement Award, \emph{SNU College of Commerce Alumni Association} (2007)\\
+Presidential Award, \emph{Seoul National University} (2007)
+% ===== Grants and Fellowships =======================================
+\section{Grants and Fellowships}
+\vspace{3pt}
+Grant - Accelerating trustworthy AI, \emph{Innovate UK (UK Research and Innovation)} (2024)\\
+Grant - Regional Innovation Fund, \emph{UK Research and Innovation} (2024)\\
+Grant, \emph{LBS Leadership Institute} (2023)\\
+Grant, \emph{LBS Alumni Case Development Fund} (2023)\\
+Grant, \emph{Wheeler Institute for Business and Development} (2023, 2020, 2019)\\
+Grant, \emph{LBS Institute of Innovation and Entrepreneurship} (2019)\\
+Grant, \emph{Columbia S. Bernstein Center for Leadership and Ethics} (2016)\\
+Grant, \emph{Columbia Center on Japanese Economy and Business} (2016, 2014)\\
+Grant, \emph{Columbia J. Chazen Institute of International Business} (2015)\\
+Grant, \emph{Columbia Center for International Business Education \& Research} (2013)\\
+Research Scholarship, \emph{Seoul National University Alumni Association, New York} (2013)\\
+Overseas Graduate Fellowship, \emph{Korea Foundation for Advanced Studies} (2011--2017)\\
+Brain Korea 21 Scholarship (2010, 2007)\\
+Undergraduate Fellowship, \emph{Gwanjung Educational Foundation} (2006--2007)\\
+Undergraduate Scholar Research Grant, \emph{Seoul National University} (2006)\\
+Academic Merit Scholarship, \emph{Seoul National University} (2002--2005)
+% ===== Editorial Review Board =======================================
+\section{Editorial Review Board}
+\vspace{3pt}
+\emph{Strategic Management Journal} (2019--)
+% ===== Referee Service ==============================================
+\section{Referee Service}
+\vspace{3pt}
+\emph{Academy of Management Review}, \emph{Administrative Science Quarterly}, \emph{Management Science}, \emph{Organization Science}, \emph{Strategic Management Journal}, \emph{Research Policy}, \emph{California Management Review}, \emph{Technological Forecasting and Social Change}, \emph{Journal of Management Studies}, \emph{Academy of Management Discoveries}
+\end{document}
