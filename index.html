@@ -180,7 +180,7 @@ section{
 
 /* ---------- Theme cards ---------- */
 .themes{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
   margin-top:56px;
 }
 .theme-card{
@@ -321,7 +321,6 @@ footer{
       <button type="button" data-v="0">01 Diffusion</button>
       <button type="button" data-v="1">02 Search</button>
       <button type="button" data-v="2">03 Race</button>
-      <button type="button" data-v="3">04 Flow</button>
     </div>
     <div class="hero-scroll">Scroll</div>
   </header>
@@ -365,27 +364,17 @@ footer{
 
   <div class="themes">
     <div class="theme-card">
-      <svg width="46" height="34" viewBox="0 0 46 34" fill="none" aria-hidden="true">
+      <svg width="62" height="34" viewBox="0 0 62 34" fill="none" aria-hidden="true">
         <path d="M1 30 C6 30 7 14 12 14 C16 14 16 24 20 24 C25 24 25 4 31 4 C36 4 36 18 40 18 C43 18 44 12 45 12" stroke="#6f6f6f" stroke-width="1.4"/>
         <circle cx="31" cy="4" r="3" fill="#e05252"/>
-        <circle cx="12" cy="14" r="2.4" fill="#3d3d3d"/>
+        <line x1="45" y1="26" x2="52" y2="14" stroke="#3d3d3d" stroke-width="1.2"/>
+        <line x1="52" y1="14" x2="60" y2="22" stroke="#e05252" stroke-width="1.4"/>
+        <circle cx="45" cy="26" r="2.6" fill="#6f6f6f"/>
+        <circle cx="52" cy="14" r="2.6" fill="#e05252"/>
+        <circle cx="60" cy="22" r="2.6" fill="#e05252"/>
       </svg>
-      <h5>Organizational Search</h5>
-      <p>How firms search rugged landscapes: decomposability, distant search, and the allocation of attention and resources under uncertainty.</p>
-    </div>
-    <div class="theme-card">
-      <svg width="46" height="34" viewBox="0 0 46 34" fill="none" aria-hidden="true">
-        <line x1="8" y1="26" x2="18" y2="10" stroke="#3d3d3d" stroke-width="1.2"/>
-        <line x1="18" y1="10" x2="30" y2="20" stroke="#3d3d3d" stroke-width="1.2"/>
-        <line x1="8" y1="26" x2="30" y2="20" stroke="#3d3d3d" stroke-width="1.2"/>
-        <line x1="30" y1="20" x2="40" y2="8" stroke="#e05252" stroke-width="1.4"/>
-        <circle cx="8" cy="26" r="3" fill="#6f6f6f"/>
-        <circle cx="18" cy="10" r="3" fill="#6f6f6f"/>
-        <circle cx="30" cy="20" r="3" fill="#e05252"/>
-        <circle cx="40" cy="8" r="3" fill="#e05252"/>
-      </svg>
-      <h5>Networks &amp; Diffusion</h5>
-      <p>How bridges integrate local clusters, how giant clusters form, and how network structure shapes what spreads and to whom.</p>
+      <h5>Search &amp; Diffusion</h5>
+      <p>How organizations search rugged, shifting landscapes, and how innovations spread through networks: decomposability, distant search, bridges, and the formation of giant clusters.</p>
     </div>
     <div class="theme-card">
       <svg width="46" height="34" viewBox="0 0 46 34" fill="none" aria-hidden="true">
@@ -394,8 +383,8 @@ footer{
         <path d="M15 12 h5 a5 5 0 0 1 0 10 h-5 z" fill="#e05252" opacity=".85"/>
         <path d="M36 8 v18 M27 17 h18" stroke="#3d3d3d" stroke-width="1.6"/>
       </svg>
-      <h5>Innovation &amp; Access in Healthcare</h5>
-      <p>Drug development, expanded access, and clinical trials: when firms provide early access and who benefits from innovation.</p>
+      <h5>Innovation &amp; Healthcare</h5>
+      <p>Drug development, expanded access, and clinical trials: when firms provide early access, how technologies race and leadership changes hands, and who benefits from innovation.</p>
     </div>
   </div>
 </section>
@@ -1336,7 +1325,7 @@ if(!reduced){
   }
 
   /* ================= engine ================= */
-  const registry=[Diffusion(),Landscape(),Race(),Flow()];
+  const registry=[Diffusion(),Landscape(),Race()]; /* Flow() kept in code but unregistered for now */
   function activate(i){
     current=registry[i];
     sizeCanvas();
