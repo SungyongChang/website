@@ -77,21 +77,42 @@ nav.scrolled{border-bottom-color:var(--line)}
   padding:120px 40px 60px;
   max-width:1080px;margin:0 auto;
 }
+.vis-bar{margin-top:30px;max-width:640px}
+.vis-stage{display:none}
+@media(max-width:860px){
+  .vis-stage{display:block;position:relative;height:min(62vh,400px);margin:26px -22px 0}
+  .vis-stage #net{position:absolute;inset:0}
+  .vis-bar{margin-top:14px}
+}
 .hero-note{
-  margin-top:14px;
-  font-family:'JetBrains Mono',monospace;
-  font-size:11.5px;color:var(--text-faint);
+  margin-top:10px;font-size:13.5px;line-height:1.55;color:var(--text-soft);
 }
-.vis-switch{
-  margin-top:12px;display:flex;align-items:center;gap:8px;
-  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-faint);
+.vis-more{
+  background:none;border:0;padding:0;margin-left:4px;cursor:pointer;
+  font:inherit;font-size:12.5px;color:var(--text-faint);border-bottom:1px solid var(--line);
 }
-.vis-switch button{
+.vis-more:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.vis-details{margin-top:10px;padding-left:12px;border-left:1px solid var(--line)}
+.vis-details p{font-size:12.5px;line-height:1.6;color:var(--text-faint);margin:0}
+.hero-cite{
+  margin-top:6px;color:var(--text-soft);
   font-family:'JetBrains Mono',monospace;font-size:11px;
-  background:none;border:1px solid var(--line);border-radius:100px;
-  color:var(--text-soft);padding:4px 12px;cursor:pointer;
-  transition:all .15s ease;
 }
+.hero-cite a{color:var(--text-soft);border-bottom:1px solid var(--line)}
+.hero-stat{margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-faint);display:flex;flex-wrap:wrap;gap:4px 14px}
+.hero-stat b{color:var(--accent);font-weight:500}
+.hero-stat .k{color:var(--text-soft)}
+.hero-cite a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.vis-switch{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.vis-switch button{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  width:28px;height:28px;border-radius:50%;padding:0;
+  background:none;border:1px solid var(--line);color:var(--text-faint);
+  cursor:pointer;transition:all .15s ease;
+}
+.vis-name{margin-left:10px;font-size:13px;color:var(--text);letter-spacing:.01em;transition:color .15s ease}
+.vis-name.peek{color:var(--text-faint)}
+@media(max-width:860px){.vis-name{width:100%;margin:6px 0 0}}
 .vis-switch button:hover{border-color:var(--accent);color:var(--accent)}
 .vis-switch button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 .hero-kicker{
@@ -315,12 +336,25 @@ footer{
     <div class="hero-kicker">Assistant Professor of Management &amp; Organizations · Cornell University</div>
     <h1>How organizations decide under uncertainty, and how those decisions determine <em>who gets access to innovation</em>.</h1>
     <p class="hero-sub">I study organizational decision-making in high-stakes settings such as healthcare, using large-scale data and computational models to trace how organizational processes unfold over time and how they generate differences in diffusion, performance, and access.</p>
-    <div class="hero-note" id="visCaption"></div>
-    <div class="vis-switch" aria-label="Background visual">
-      <span>Visual</span>
-      <button type="button" data-v="0">01 Diffusion</button>
-      <button type="button" data-v="1">02 Search</button>
-      <button type="button" data-v="2">03 Race</button>
+    <div class="vis-stage" id="visStage"></div>
+    <div class="vis-bar">
+      <div class="vis-switch" aria-label="Background visual">
+        <button type="button" data-v="0" data-name="Bridges to a Giant Cluster" aria-label="Bridges to a Giant Cluster">01</button>
+        <button type="button" data-v="1" data-name="Bridges or Barriers" aria-label="Bridges or Barriers">02</button>
+        <button type="button" data-v="2" data-name="Barriers to Early Access" aria-label="Barriers to Early Access">03</button>
+        <button type="button" data-v="3" data-name="Distant Search" aria-label="Distant Search">04</button>
+        <button type="button" data-v="4" data-name="Anchored Search" aria-label="Anchored Search">05</button>
+        <button type="button" data-v="5" data-name="Innovation-Imitation Race" aria-label="Innovation-Imitation Race">06</button>
+        <button type="button" data-v="6" data-name="Race Through Boom and Bust" aria-label="Race Through Boom and Bust">07</button>
+        <button type="button" data-v="7" data-name="Wide Ranges, Narrow Choices" aria-label="Wide Ranges, Narrow Choices">08</button>
+        <span class="vis-name" id="visName"></span>
+      </div>
+      <p class="hero-note"><span id="visCaption"></span> <button type="button" class="vis-more" id="visMore" aria-expanded="false">About this visual</button></p>
+      <div class="vis-details" id="visDetails" hidden>
+        <p id="visLong"></p>
+        <div class="hero-cite" id="visCite"></div>
+        <div class="hero-stat" id="visStat"></div>
+      </div>
     </div>
     <div class="hero-scroll">Scroll</div>
   </header>
@@ -479,6 +513,7 @@ footer{
     <div>
       <div class="pub-title">Do Firms Differ in Their Capabilities for Distant Search? A Study of Wildcatters in Oil Exploration<span class="tag">R&amp;R · SMJ</span></div>
       <div class="pub-authors">Divya Saxena, Sungyong Chang, and Sendil Ethiraj</div>
+      <div class="pub-note">2025 Academy of Management Annual Meeting Proceedings</div>
     </div>
   </div>
   <div class="pub">
@@ -710,9 +745,26 @@ if(!reduced){
 /* ---- interactive hero visuals: diffusion network / fitness landscape ---- */
 (function(){
   const cv=document.getElementById('net');
-  const wrap=cv.parentElement;
+  const wrap=cv.parentElement;                       /* the hero; holds the canvas on wide screens */
+  const stage=document.getElementById('visStage');   /* on phones the canvas gets its own stage below the copy */
+  let staged=false;
+  function placeCanvas(){
+    staged=window.matchMedia('(max-width:860px)').matches;
+    const home=staged?stage:wrap;
+    if(cv.parentElement!==home)home.insertBefore(cv,home.firstChild);
+  }
+  placeCanvas();
   const ctx=cv.getContext('2d');
+  /* labels are left out only when the canvas would sit under the copy (narrow, but not staged) */
+  const _fillText=ctx.fillText.bind(ctx);
+  ctx.fillText=function(){if(W>=820||staged)_fillText.apply(null,arguments)};
   const captionEl=document.getElementById('visCaption');
+  const citeEl=document.getElementById('visCite');
+  const statEl=document.getElementById('visStat');
+  const longEl=document.getElementById('visLong');
+  const nameEl=document.getElementById('visName');
+  const moreEl=document.getElementById('visMore'),detEl=document.getElementById('visDetails');
+  moreEl.addEventListener('click',e=>{e.stopPropagation();const open=detEl.hidden;detEl.hidden=!open;moreEl.setAttribute('aria-expanded',open);moreEl.textContent=open?'Hide details':'About this visual'});
   const btns=document.querySelectorAll('.vis-switch button');
   const mouse={x:-9999,y:-9999,on:false};
   let W,H,dpr,current;
@@ -720,7 +772,7 @@ if(!reduced){
 
   function sizeCanvas(){
     dpr=Math.min(window.devicePixelRatio||1,2);
-    W=wrap.clientWidth;H=wrap.clientHeight;
+    const box=cv.parentElement;W=box.clientWidth;H=box.clientHeight;
     cv.width=W*dpr;cv.height=H*dpr;
     ctx.setTransform(dpr,0,0,dpr,0,0);
   }
@@ -743,6 +795,7 @@ if(!reduced){
   }
   /* softens the canvas over the text column so the hero copy always reads first */
   function veil(k){
+    if(staged)return;                                 /* nothing sits on top of a staged canvas */
     const g=ctx.createLinearGradient(0,0,W,0);
     if(W<820){                                  /* narrow: the copy spans the canvas, so dim it all */
       g.addColorStop(0,`rgba(0,0,0,${k*1.05})`);
@@ -771,135 +824,205 @@ if(!reduced){
     ctx.lineTo(xs[n-1],ys[n-1]);
   }
 
-  /* ================= Visual 1: network diffusion ================= */
-  function Diffusion(){
-    const N=130,LINK=125,SPEED=0.22,MOUSE_R=190;
-    let nodes,adopted,tick,resetting;
-    let ripples=[];
+  /* ================= Visual 1: bridges and giant-cluster formation ================= */
+  function Bridges(){
+    const GOLD='232,178,82';
+    const MOUSE_R=190,KNN=3;
+    let nodes,clusters,edges,bridges,adopted,tick,holdUntil,ripples,nextBridgeAt,lastSize,lastGrow;
+    function layout(){
+      const pts=W<820
+        ?[[0.24,0.30],[0.74,0.36],[0.30,0.74],[0.76,0.78]]
+        :[[0.78,0.16],[0.92,0.34],[0.72,0.47],[0.91,0.66],[0.74,0.80]];   /* kept clear of the headline and body copy */
+      return pts.map(([u,v])=>({cx:u*W+rand(-24,24),cy:v*H+rand(-18,18)}));
+    }
     function build(){
-      nodes=[];ripples=[];
-      for(let i=0;i<N;i++){
-        const base=1.3+Math.pow(Math.random(),2.4)*3.8;
-        nodes.push({x:rand(0,W),y:rand(0,H),vx:rand(-SPEED,SPEED),vy:rand(-SPEED,SPEED),a:0,f:0,r:base});
-      }
+      nodes=[];edges=[];bridges=[];ripples=[];
+      clusters=layout();
+      const R=Math.max(50,Math.min(W,H)*0.105);
+      const per=W<820?16:22;
+      clusters.forEach((c,ci)=>{
+        c.members=[];
+        for(let k=0;k<per;k++){
+          const ang=Math.random()*Math.PI*2,rr=R*Math.sqrt(Math.random());
+          const hx=c.cx+Math.cos(ang)*rr,hy=c.cy+Math.sin(ang)*rr*0.82;
+          c.members.push(nodes.length);
+          nodes.push({x:hx,y:hy,hx,hy,vx:0,vy:0,c:ci,a:0,f:0,br:0,
+            r:1.3+Math.pow(Math.random(),2.4)*3.4,ph:Math.random()*6.28,nb:[]});
+        }
+      });
+      /* local ties: each node links to its nearest neighbours inside its own cluster */
+      const seen=new Set();
+      clusters.forEach(c=>c.members.forEach(i=>{
+        c.members.filter(j=>j!==i)
+          .map(j=>[j,(nodes[i].hx-nodes[j].hx)**2+(nodes[i].hy-nodes[j].hy)**2])
+          .sort((a,b)=>a[1]-b[1]).slice(0,KNN)
+          .forEach(([j])=>{
+            const k=Math.min(i,j)+'-'+Math.max(i,j);
+            if(!seen.has(k)){seen.add(k);edges.push([i,j]);nodes[i].nb.push(j);nodes[j].nb.push(i)}
+          });
+      }));
+      /* make sure every cluster is internally connected: join any stray components by their closest pair */
+      clusters.forEach(c=>{
+        for(;;){
+          const comp=new Map(),st=[c.members[0]];comp.set(c.members[0],1);
+          while(st.length){const i=st.pop();nodes[i].nb.forEach(j=>{if(!comp.has(j)){comp.set(j,1);st.push(j)}})}
+          if(comp.size===c.members.length)break;
+          let best=null,bd=Infinity;
+          c.members.forEach(i=>{if(!comp.has(i))return;c.members.forEach(j=>{if(comp.has(j))return;
+            const d=(nodes[i].hx-nodes[j].hx)**2+(nodes[i].hy-nodes[j].hy)**2;if(d<bd){bd=d;best=[i,j]}})});
+          edges.push(best);nodes[best[0]].nb.push(best[1]);nodes[best[1]].nb.push(best[0]);
+        }
+      });
       reset();
     }
     function reset(){
-      adopted=new Set();tick=0;resetting=false;
-      nodes.forEach(n=>{n.a=0;n.f=0});
-      const seed=Math.floor(Math.random()*N);
-      adopted.add(seed);nodes[seed].a=1;nodes[seed].f=1;
+      adopted=new Set();tick=0;holdUntil=0;bridges=[];nextBridgeAt=Infinity;lastSize=0;lastGrow=0;
+      nodes.forEach(n=>{n.a=0;n.f=0;n.br=0});
+      const c=clusters[Math.floor(Math.random()*clusters.length)];
+      const s=c.members[Math.floor(Math.random()*c.members.length)];
+      convert(s);nodes[s].a=1;
     }
-    function convert(j){adopted.add(j);nodes[j].a=0.02;nodes[j].f=1}
-    function neighbors(i){
-      const out=[];const n=nodes[i];
-      for(let j=0;j<N;j++){
-        if(j===i)continue;
-        const m=nodes[j],dx=n.x-m.x,dy=n.y-m.y;
-        if(dx*dx+dy*dy<LINK*LINK)out.push(j);
-      }
-      return out;
+    function convert(j){if(adopted.has(j))return;adopted.add(j);nodes[j].a=Math.max(nodes[j].a,0.02);nodes[j].f=1}
+    function frac(ci){const m=clusters[ci].members;let k=0;m.forEach(i=>{if(adopted.has(i))k++});return k/m.length}
+    function bridged(ci,cj){return bridges.some(b=>{const x=nodes[b.a].c,y=nodes[b.b].c;return (x===ci&&y===cj)||(x===cj&&y===ci)})}
+    function cdist(ci,cj){const a=clusters[ci],b=clusters[cj];return (a.cx-b.cx)**2+(a.cy-b.cy)**2}
+    function addBridge(ci,cj){
+      if(ci===cj||bridged(ci,cj))return false;
+      let best=null,bd=Infinity;
+      clusters[ci].members.forEach(i=>clusters[cj].members.forEach(j=>{
+        const d=(nodes[i].hx-nodes[j].hx)**2+(nodes[i].hy-nodes[j].hy)**2;
+        if(d<bd){bd=d;best=[i,j]}
+      }));
+      bridges.push({a:best[0],b:best[1],g:0,p:-1,from:-1,done:false});
+      return true;
     }
     function step(){
       tick++;
       const mw=smouse.w;
       nodes.forEach(n=>{
+        n.ph+=0.012;
+        n.vx+=(n.hx+Math.cos(n.ph*1.3)*7-n.x)*0.004+rand(-0.02,0.02);
+        n.vy+=(n.hy+Math.sin(n.ph)*7-n.y)*0.004+rand(-0.02,0.02);
         if(mw>0.01){
           const dx=smouse.x-n.x,dy=smouse.y-n.y,d2=dx*dx+dy*dy;
           if(d2<MOUSE_R*MOUSE_R&&d2>1){
-            const d=Math.sqrt(d2),f=0.028*Math.pow(1-d/MOUSE_R,1.4)*mw;
+            const d=Math.sqrt(d2),f=0.05*Math.pow(1-d/MOUSE_R,1.4)*mw;
             n.vx+=dx/d*f;n.vy+=dy/d*f;
           }
         }
-        const sp=Math.hypot(n.vx,n.vy),cap=0.9;
-        if(sp>cap){n.vx*=cap/sp;n.vy*=cap/sp}
-        n.vx*=0.995;n.vy*=0.995;
-        n.x+=n.vx;n.y+=n.vy;
-        if(n.x<0||n.x>W)n.vx*=-1;
-        if(n.y<0||n.y>H)n.vy*=-1;
-        if(n.a>0&&n.a<1)n.a=Math.min(1,n.a+(1-n.a)*0.085+0.008);   /* eased adoption */
+        n.vx*=0.94;n.vy*=0.94;n.x+=n.vx;n.y+=n.vy;
+        if(n.a>0&&n.a<1)n.a=Math.min(1,n.a+(1-n.a)*0.085+0.008);
         if(n.f>0.001)n.f*=0.955;else n.f=0;
+        n.br*=0.9;
+      });
+      /* bridges grow, then carry the innovation across in a travelling pulse */
+      bridges.forEach(b=>{
+        b.g+=(1-b.g)*0.05+0.003;if(b.g>1)b.g=1;
+        nodes[b.a].br=Math.max(nodes[b.a].br,b.g);nodes[b.b].br=Math.max(nodes[b.b].br,b.g);
+        if(b.done)return;
+        const ia=adopted.has(b.a),ib=adopted.has(b.b);
+        if(b.p<0&&b.g>0.95&&ia!==ib){b.p=0;b.from=ia?b.a:b.b}
+        if(b.p>=0){
+          b.p+=0.022;
+          if(b.p>=1){convert(b.from===b.a?b.b:b.a);b.p=-1;b.done=true}
+        }else if(ia&&ib)b.done=true;
       });
       for(let i=ripples.length-1;i>=0;i--){
         const r=ripples[i];r.r+=(r.max-r.r)*0.055;r.al*=0.955;
         if(r.al<0.02)ripples.splice(i,1);
       }
-      if(tick%18===0){
-        const cur=[...adopted];
-        cur.forEach(i=>{
-          const nb=neighbors(i).filter(j=>!adopted.has(j));
-          if(nb.length&&Math.random()<0.7){
-            convert(nb[Math.floor(Math.random()*nb.length)]);
-          }
+      if(tick%14===0){
+        [...adopted].forEach(i=>{
+          const nb=nodes[i].nb.filter(j=>!adopted.has(j));
+          if(nb.length&&Math.random()<0.6)convert(nb[Math.floor(Math.random()*nb.length)]);
         });
-        if(adopted.size>N*0.85&&!resetting){resetting=true;setTimeout(()=>{if(current===api)reset()},1600);}
+      }
+      /* once the reached clusters saturate, a new bridge forms toward the nearest isolated one */
+      const reached=clusters.map((c,ci)=>frac(ci)>0);
+      if(adopted.size!==lastSize){lastSize=adopted.size;lastGrow=tick}
+      const saturated=clusters.every((c,ci)=>!reached[ci]||frac(ci)>0.7)||tick-lastGrow>150;
+      const pending=bridges.some(b=>!b.done);
+      if(reached.includes(false)&&saturated&&!pending){
+        if(nextBridgeAt===Infinity)nextBridgeAt=tick+70;
+        if(tick>=nextBridgeAt){
+          let best=null,bd=Infinity;
+          clusters.forEach((c,ci)=>{if(!reached[ci])return;
+            clusters.forEach((d,cj)=>{if(reached[cj])return;const dd=cdist(ci,cj);if(dd<bd){bd=dd;best=[ci,cj]}})});
+          if(best)addBridge(best[0],best[1]);
+          nextBridgeAt=Infinity;
+        }
+      }
+      if(clusters.every((c,ci)=>frac(ci)>0.9)){
+        if(!holdUntil)holdUntil=tick+170;
+        else if(tick>=holdUntil)build();
       }
     }
     function draw(){
       ctx.clearRect(0,0,W,H);
-      for(let i=0;i<N;i++){
-        for(let j=i+1;j<N;j++){
-          const a=nodes[i],b=nodes[j];
-          const dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;
-          if(d2<LINK*LINK){
-            const t=1-Math.sqrt(d2)/LINK;
-            const t2=t*t*(3-2*t);                          /* eased link falloff */
-            const av=Math.min(a.a,b.a);
-            if(av>0.05){
-              ctx.strokeStyle=`rgba(${ACC},${(0.30*t2+0.07)*av})`;
-              ctx.lineWidth=0.8+0.5*av;
-            }else{
-              ctx.strokeStyle=`rgba(255,255,255,${0.10*t2+0.02})`;
-              ctx.lineWidth=0.8;
-            }
-            ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
-          }
+      edges.forEach(([i,j])=>{
+        const a=nodes[i],b=nodes[j],av=Math.min(a.a,b.a);
+        if(av>0.05){ctx.strokeStyle=`rgba(${ACC},${0.34*av})`;ctx.lineWidth=0.8+0.5*av}
+        else{ctx.strokeStyle='rgba(255,255,255,0.10)';ctx.lineWidth=0.8}
+        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+      });
+      bridges.forEach(b=>{
+        const a=nodes[b.a],c=nodes[b.b];
+        const ex=a.x+(c.x-a.x)*b.g,ey=a.y+(c.y-a.y)*b.g;
+        ctx.strokeStyle=`rgba(${GOLD},0.16)`;ctx.lineWidth=5;
+        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(ex,ey);ctx.stroke();
+        ctx.strokeStyle=`rgba(${GOLD},0.85)`;ctx.lineWidth=1.4;
+        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(ex,ey);ctx.stroke();
+        if(b.p>=0){
+          const s=b.from===b.a?a:c,t=b.from===b.a?c:a,u=ease(b.p);
+          const px=s.x+(t.x-s.x)*u,py=s.y+(t.y-s.y)*u;
+          ctx.fillStyle=`rgba(${ACC},1)`;ctx.shadowColor=`rgba(${ACC},1)`;ctx.shadowBlur=14;
+          ctx.beginPath();ctx.arc(px,py,3.4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
         }
-      }
+      });
       if(smouse.w>0.01){
         const mw=smouse.w;
         nodes.forEach(n=>{
           const dx=smouse.x-n.x,dy=smouse.y-n.y,d2=dx*dx+dy*dy;
           if(d2<MOUSE_R*MOUSE_R){
             const t=1-Math.sqrt(d2)/MOUSE_R;
-            ctx.strokeStyle=`rgba(${ACC},${0.20*t*t*(3-2*t)*mw})`;
-            ctx.lineWidth=0.8;
+            ctx.strokeStyle=`rgba(${ACC},${0.18*t*t*(3-2*t)*mw})`;ctx.lineWidth=0.8;
             ctx.beginPath();ctx.moveTo(smouse.x,smouse.y);ctx.lineTo(n.x,n.y);ctx.stroke();
           }
         });
       }
       ripples.forEach(r=>{
-        ctx.strokeStyle=`rgba(${ACC},${r.al})`;
-        ctx.lineWidth=1.2;
+        ctx.strokeStyle=`rgba(${r.gold?GOLD:ACC},${r.al})`;ctx.lineWidth=1.2;
         ctx.beginPath();ctx.arc(r.x,r.y,r.r,0,Math.PI*2);ctx.stroke();
       });
       nodes.forEach(n=>{
-        const r=n.r*(1+0.45*n.a+0.55*n.f);
+        const r=n.r*(1+0.45*n.a+0.55*n.f)+(n.br>0.05?1.2:0);
+        if(n.br>0.05){                                   /* bridge nodes: gold ring */
+          ctx.strokeStyle=`rgba(${GOLD},${0.9*n.br})`;ctx.lineWidth=1.3;
+          ctx.beginPath();ctx.arc(n.x,n.y,r+4,0,Math.PI*2);ctx.stroke();
+        }
         if(n.a>0){
           ctx.fillStyle=`rgba(${ACC},${0.40+0.55*n.a})`;
           ctx.shadowColor=`rgba(${ACC},0.9)`;ctx.shadowBlur=(5+2.6*n.r)*n.a+10*n.f;
+        }else if(n.br>0.05){
+          ctx.fillStyle=`rgba(${GOLD},${0.55+0.4*n.br})`;ctx.shadowColor=`rgba(${GOLD},0.8)`;ctx.shadowBlur=8*n.br;
         }else{
           ctx.fillStyle=`rgba(255,255,255,${0.30+0.05*n.r})`;ctx.shadowBlur=0;
         }
-        ctx.beginPath();ctx.arc(n.x,n.y,r,0,Math.PI*2);ctx.fill();
-        ctx.shadowBlur=0;
+        ctx.beginPath();ctx.arc(n.x,n.y,r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
       });
       veil(0.30);
     }
     function onClick(p){
-      ripples.push({x:p.x,y:p.y,r:6,max:78,al:0.5});
-      let best=-1,bd=Infinity;
-      for(let i=0;i<N;i++){
-        const dx=nodes[i].x-p.x,dy=nodes[i].y-p.y,d2=dx*dx+dy*dy;
-        if(d2<bd){bd=d2;best=i}
-      }
-      if(best>=0&&!adopted.has(best))convert(best);
-      else if(best>=0){
-        neighbors(best).forEach(j=>{if(!adopted.has(j))convert(j)});
-      }
+      ripples.push({x:p.x,y:p.y,r:6,max:70,al:0.55,gold:true});
+      let ci=0,bd=Infinity;
+      clusters.forEach((c,i)=>{const d=(c.cx-p.x)**2+(c.cy-p.y)**2;if(d<bd){bd=d;ci=i}});
+      const order=clusters.map((c,j)=>j).filter(j=>j!==ci&&!bridged(ci,j)).sort((x,y)=>cdist(ci,x)-cdist(ci,y));
+      if(order.length)addBridge(ci,order[0]);
     }
     const api={build,step,draw,onClick,
-      caption:'An innovation diffusing through a network. Move your cursor to pull the network; click anywhere to seed a new one.'};
+      short:'A few bridges link local clusters into one, and only then does an innovation spread.',
+      caption:'Local clusters stay apart until bridges (gold) knit them into one giant cluster, and only then does the innovation spread network-wide. Click near a cluster to build a bridge.',
+      cite:{text:'Chang, Lee & Song (2023), Strategic Management Journal',href:'https://doi.org/10.1002/smj.3527'}};
     return api;
   }
 
@@ -1055,52 +1178,68 @@ if(!reduced){
   }
 
 
-  /* ================= Visual 3: imitation vs innovation race ================= */
-  function Race(){
-    const F=6,SAMPLES=260,PAD_R=30;
-    let firms,tick,leader,pulses;
+  /* ================= Visual 3: a latecomer's catch-up ================= */
+  function CatchUp(){
+    const F=6,SAMPLES=260,PAD_R=34;
+    let firms,tick,leader,pulses,late,phase,phaseT;
+    const TAGS={behind:'latecomer',catchup:'catching up: imitation',leap:'leapfrog: innovation',lead:'new leader'};
+    function setPhase(p){phase=p;phaseT=0}
     function build(){
-      firms=[];tick=0;pulses=[];leader=0;
+      firms=[];tick=0;pulses=[];leader=1;late=0;
       for(let i=0;i<F;i++){
-        firms.push({
-          lv:rand(0,26),
-          rate:0.03+Math.random()*0.075,
-          dim:0.11+Math.random()*0.07,      /* each laggard sits at its own faint weight */
-          jump:null,
-          hist:[]
-        });
+        firms.push({lv:i===0?0:rand(28,48),rate:0.03+Math.random()*0.06,
+          dim:0.11+Math.random()*0.07,jump:null,hist:[],red:i===0?1:0});
       }
-      for(let k=0;k<SAMPLES*2+120;k++)step(true);   /* prefill with simulated history */
+      setPhase('behind');
+      for(let k=0;k<SAMPLES*2+120;k++)step(true);   /* history: the latecomer trails without a catch-up strategy */
+      setPhase('catchup');
     }
     function sample(){firms.forEach(f=>{f.hist.push(f.lv);if(f.hist.length>SAMPLES)f.hist.shift()})}
     function innovate(f,amt){
-      /* an innovation is released over ~half a second, so the riser is a curve, not a wall */
       if(f.jump)f.jump.amt+=amt;
-      else f.jump={amt,dur:26+Math.random()*16,t:0,done:0};
+      else f.jump={amt,dur:30+Math.random()*14,t:0,done:0};
     }
+    function range(){let mn=Infinity,mx=-Infinity;firms.forEach(f=>{if(f.lv<mn)mn=f.lv;if(f.lv>mx)mx=f.lv});return mx-mn}
     function step(pre){
-      tick++;
-      const maxLv=Math.max(...firms.map(f=>f.lv));
-      firms.forEach(f=>{
-        f.lv+=f.rate*0.5;                      /* steady progress */
-        f.lv+=(maxLv-f.lv)*0.0011;             /* imitation: catch-up toward the leader */
+      tick++;phaseT++;
+      const L=firms[late];
+      let maxInc=-Infinity;firms.forEach((f,i)=>{if(i!==late&&f.lv>maxInc)maxInc=f.lv});
+      firms.forEach((f,i)=>{
+        if(i===late&&(phase==='behind'||phase==='catchup')){
+          if(phase==='behind')f.lv+=f.rate*0.15;                       /* no strategy yet: drifting behind */
+          else f.lv+=f.rate*0.5+(maxInc-f.lv)*0.014;                    /* imitation closes the gap */
+        }else{
+          f.lv+=f.rate*0.5;
+          f.lv+=(maxInc-f.lv)*0.0011;
+          const quiet=phase==='leap'||(phase==='lead'&&phaseT<300);   /* let the new leader's lead register */
+          if(!f.jump&&i!==late&&!quiet&&Math.random()<0.0035)innovate(f,14+Math.random()*22);
+        }
         if(f.jump){
           f.jump.t++;
-          const u=Math.min(1,f.jump.t/f.jump.dur);
-          const done=ease(u)*f.jump.amt;
-          f.lv+=done-f.jump.done;
-          f.jump.done=done;
+          const u=Math.min(1,f.jump.t/f.jump.dur),done=ease(u)*f.jump.amt;
+          f.lv+=done-f.jump.done;f.jump.done=done;
           if(u>=1)f.jump=null;
-        }else if(Math.random()<0.0042){
-          innovate(f,15+Math.random()*26);     /* innovation: discrete but eased jump */
         }
+        f.red+=((i===late?1:0)-f.red)*0.04;
       });
-      let li=0;
-      for(let i=1;i<F;i++)if(firms[i].lv>firms[li].lv)li=i;
-      if(li!==leader){leader=li;if(!pre)pulses.push({f:li,r:5,al:0.4})}
+      if(!pre){
+        if(phase==='behind'&&phaseT>160)setPhase('catchup');
+        else if(phase==='catchup'){
+          const gap=maxInc-L.lv;
+          if((phaseT>90&&gap<Math.max(5,range()*0.1))||phaseT>460){
+            innovate(L,Math.max(0,gap)+18+Math.random()*12);setPhase('leap');
+          }
+        }else if(phase==='leap'&&!L.jump)setPhase('lead');
+        else if(phase==='lead'&&phaseT>380){
+          let lo=-1,lv=Infinity;firms.forEach((f,i)=>{if(i!==late&&f.lv<lv){lv=f.lv;lo=i}});
+          late=lo;setPhase('behind');                                   /* the laggard becomes the next latecomer */
+        }
+      }
+      let li=0;for(let i=1;i<F;i++)if(firms[i].lv>firms[li].lv)li=i;
+      if(li!==leader){leader=li;if(!pre)pulses.push({f:li,r:5,al:li===late?0.7:0.35})}
       if(!pre){
         for(let i=pulses.length-1;i>=0;i--){
-          const q=pulses[i];q.r+=(22-q.r)*0.06;q.al*=0.95;
+          const q=pulses[i];q.r+=(24-q.r)*0.06;q.al*=0.955;
           if(q.al<0.03)pulses.splice(i,1);
         }
       }
@@ -1114,7 +1253,6 @@ if(!reduced){
       return v=>H*0.88-(v-mn)/(mx-mn)*H*0.62;
     }
     function fade(rgb,a){
-      /* trajectories emerge out of the dark instead of cutting across the whole hero */
       const g=ctx.createLinearGradient(0,0,W-PAD_R,0);
       g.addColorStop(0,`rgba(${rgb},0)`);
       g.addColorStop(0.45,`rgba(${rgb},${a*0.38})`);
@@ -1125,47 +1263,399 @@ if(!reduced){
       ctx.clearRect(0,0,W,H);
       const yOf=scale(),PW=W-PAD_R,n=firms[0].hist.length;
       ctx.lineJoin='round';ctx.lineCap='round';
-      const order=firms.map((f,i)=>i).sort((a,b)=>(a===leader?1:0)-(b===leader?1:0));
+      const order=firms.map((f,i)=>i).sort((a,b)=>firms[a].red-firms[b].red);
       order.forEach(idx=>{
-        const f=firms[idx],lead=idx===leader;
+        const f=firms[idx];
         for(let i=0;i<n;i++){xs[i]=i/(SAMPLES-1)*PW;ys[i]=yOf(f.hist[i])}
         smoothPath(xs,ys,n);
-        if(lead){
-          ctx.strokeStyle=fade(ACC,0.085);ctx.lineWidth=5;ctx.stroke();  /* soft halo */
-          ctx.strokeStyle=fade(ACC,0.80);ctx.lineWidth=1.5;ctx.stroke();
-        }else{
-          ctx.strokeStyle=fade('255,255,255',f.dim);ctx.lineWidth=0.8;ctx.stroke();
+        const w=1-f.red,lead=idx===leader;
+        if(w>0.02){ctx.strokeStyle=fade('255,255,255',(lead?0.32:f.dim)*w);ctx.lineWidth=lead?1.1:0.8;ctx.stroke()}
+        if(f.red>0.02){
+          ctx.strokeStyle=fade(ACC,0.09*f.red);ctx.lineWidth=5;ctx.stroke();
+          ctx.strokeStyle=fade(ACC,0.85*f.red);ctx.lineWidth=1.6;ctx.stroke();
         }
         const hx=xs[n-1],hy=ys[n-1];
-        if(lead){
-          ctx.fillStyle=`rgba(${ACC},0.95)`;
-          ctx.shadowColor=`rgba(${ACC},0.9)`;ctx.shadowBlur=8;
-          ctx.beginPath();ctx.arc(hx,hy,3.1,0,Math.PI*2);ctx.fill();
-          ctx.shadowBlur=0;
+        if(f.red>0.5){
+          ctx.fillStyle=`rgba(${ACC},0.95)`;ctx.shadowColor=`rgba(${ACC},0.9)`;ctx.shadowBlur=9;
+          ctx.beginPath();ctx.arc(hx,hy,3.3,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
         }else{
-          ctx.fillStyle=`rgba(255,255,255,${0.22+f.dim*1.4})`;
-          ctx.beginPath();ctx.arc(hx,hy,1.9,0,Math.PI*2);ctx.fill();
+          ctx.fillStyle=`rgba(255,255,255,${lead?0.7:0.22+f.dim*1.4})`;
+          ctx.beginPath();ctx.arc(hx,hy,lead?2.6:1.9,0,Math.PI*2);ctx.fill();
         }
       });
-      pulses.forEach(q=>{                       /* a ring marks each change of leadership */
-        const f=firms[q.f];
-        ctx.strokeStyle=`rgba(${ACC},${q.al})`;
-        ctx.lineWidth=1;
-        ctx.beginPath();ctx.arc(PW,yOf(f.lv),q.r,0,Math.PI*2);ctx.stroke();
+      const L=firms[late],ly=yOf(L.hist[n-1]);
+      if(phase==='catchup'&&leader!==late){                          /* the gap the latecomer is closing */
+        const gy=yOf(firms[leader].hist[n-1]);
+        ctx.setLineDash([3,4]);ctx.strokeStyle=`rgba(${ACC},0.45)`;ctx.lineWidth=1;
+        ctx.beginPath();ctx.moveTo(PW+14,gy);ctx.lineTo(PW+14,ly);ctx.stroke();ctx.setLineDash([]);
+      }
+      let ta=phase==='lead'?Math.max(0,1-Math.max(0,phaseT-220)/80):Math.min(1,phaseT/25);
+      if(phase==='lead'&&leader!==late)ta=0;
+      if(ta>0.01){
+        ctx.font='500 11px "JetBrains Mono", monospace';ctx.textAlign='right';ctx.textBaseline='bottom';
+        ctx.fillStyle=`rgba(${ACC},${0.9*ta})`;
+        ctx.fillText(TAGS[phase],PW-10,ly-9);
+      }
+      pulses.forEach(q=>{
+        ctx.strokeStyle=`rgba(${ACC},${q.al})`;ctx.lineWidth=1.1;
+        ctx.beginPath();ctx.arc(PW,yOf(firms[q.f].lv),q.r,0,Math.PI*2);ctx.stroke();
       });
       veil(0.40);
     }
     function onClick(p){
       const yOf=scale();
-      let best=null,bd=Infinity;
-      firms.forEach(f=>{
-        const d=Math.abs(yOf(f.lv)-p.y);
-        if(d<bd){bd=d;best=f}
-      });
-      if(best)innovate(best,20+Math.random()*20);    /* user-triggered innovation */
+      let bi=-1,bd=Infinity;
+      firms.forEach((f,i)=>{const d=Math.abs(yOf(f.lv)-p.y);if(d<bd){bd=d;bi=i}});
+      if(bi<0)return;
+      if(bi===late&&phase==='catchup'){
+        let maxInc=-Infinity;firms.forEach((f,i)=>{if(i!==late&&f.lv>maxInc)maxInc=f.lv});
+        innovate(firms[late],Math.max(0,maxInc-firms[late].lv)+18+Math.random()*12);setPhase('leap');
+      }else innovate(firms[bi],20+Math.random()*20);
     }
     const api={build,step,draw,onClick,
-      caption:'Technology races: imitators catch up, innovators jump ahead, and leadership changes hands. Click near a trajectory to trigger an innovation.'};
+      short:'A latecomer imitates its way close, then innovates its way ahead.',
+      caption:'A latecomer (red) closes the gap by imitating the leader, then leapfrogs by innovating. Click near a line to trigger an innovation.',
+      cite:{text:'Chang, Kim, Song & Lee (2024), Research Policy',href:'https://www.sciencedirect.com/science/article/pii/S0048733324001057'}};
+    return api;
+  }
+
+  /* ================= Visual 4: wildcatters on a map of U.S. shale plays ================= */
+  function Wildcatters(){
+    const NRING=4,SEG=64,MAXW=280;
+    /* rough outline of the contiguous U.S. (lon, lat) */
+    const US=[[-124.7,48.4],[-122.8,49],[-95.2,49],[-94.8,49.4],[-89.6,48],[-84.8,46.5],[-82.5,43],[-79,43.3],[-76.5,44.2],
+      [-75,45],[-71.5,45],[-70,46.7],[-67.8,47.1],[-67,44.9],[-70.6,43.1],[-70,41.7],[-71.9,41.3],[-74,40.6],[-74.9,38.9],
+      [-75.9,37],[-75.5,35.2],[-77.9,33.9],[-80.9,32],[-81.4,30.4],[-80,26.8],[-80.4,25.2],[-81.8,26.1],[-82.8,28],[-82.7,29.9],
+      [-84.3,30],[-86.5,30.4],[-89.6,30.2],[-89.4,29],[-91,29.3],[-93.8,29.7],[-95,29.3],[-97.2,27.6],[-97.4,25.9],[-99.5,27.5],
+      [-101.4,29.8],[-103,29],[-104.5,29.6],[-106.5,31.8],[-108.2,31.3],[-111.1,31.3],[-114.8,32.5],[-117.1,32.5],[-118.5,34],
+      [-120.6,34.6],[-121.9,36.6],[-122.5,37.8],[-123.8,39.8],[-124.2,41.9],[-124.5,43],[-124,46.2]];
+    /* stylized plays: name, lon, lat, radius in degrees, stretch, rotation */
+    const PLAYS=[['Bakken',-103,47.9,2.0,1.35,0.1],['Niobrara',-104.6,40.6,1.6,1.0,0],['Anadarko',-98.3,35.6,1.6,1.3,-0.3],
+      ['Permian',-102.6,31.8,2.2,1.15,0.2],['Eagle Ford',-98.6,28.8,1.5,1.8,-0.6],['Haynesville',-93.7,32.3,1.4,1.0,0],
+      ['Marcellus',-77.6,41.3,1.9,1.7,-0.45]];
+    const C=Math.cos(38*Math.PI/180);
+    let proj,plays,firms,wells,drills,trails,probes,tick,stats;
+    function setupProj(){
+      let x0=Infinity,x1=-Infinity,y0=Infinity,y1=-Infinity;
+      US.forEach(([lo,la])=>{const x=lo*C,y=-la;if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y});
+      const box=W<820?{l:0.04*W,r:0.96*W,cy:0.60*H}:{l:0.56*W,r:1.03*W,cy:0.46*H};   /* western plays sit clear of the headline; the east coast may run off the edge */
+      const s=(box.r-box.l)/(x1-x0);
+      const oy=box.cy-((y0+y1)/2)*s;
+      proj={s,f:(lo,la)=>[box.l+(lo*C-x0)*s,oy+(-la)*s]};
+    }
+    function shape(pl,th,k){
+      let r=1;pl.coef.forEach(c=>{r+=c.a*Math.sin(c.k*th+c.p+pl.ph+k*0.35)});
+      const x=Math.cos(th)*r*pl.R*pl.ax,y=Math.sin(th)*r*pl.R;
+      const cr=Math.cos(pl.rot),sr=Math.sin(pl.rot);
+      return [x*cr-y*sr,x*sr+y*cr];
+    }
+    function spot(pl){
+      const th=rand(0,Math.PI*2),u=Math.sqrt(Math.random())*0.75,[dx,dy]=shape(pl,th,0);
+      return {x:pl.cx+dx*u,y:pl.cy+dy*u};
+    }
+    function build(){
+      setupProj();
+      plays=PLAYS.map(([name,lo,la,deg,ax,rot])=>{
+        const [cx,cy]=proj.f(lo,la),coef=[];
+        for(let k=2;k<=4;k++)coef.push({k,a:rand(0.04,0.12)/(k-1),p:rand(0,6.28)});
+        return {name,cx,cy,R:Math.max(20,deg*C*proj.s*1.4),ax,rot,coef,ph:rand(0,6.28),flash:0,hl:0};
+      });
+      wells=[];drills=[];trails=[];probes=[];tick=0;
+      stats={red:[],oth:[],fam:[]};
+      const homes=[0,3,5,6].sort(()=>Math.random()-0.5);
+      firms=[];
+      homes.forEach(h=>{
+        const s=spot(plays[h]);
+        firms.push({local:true,home:h,play:h,x:s.x,y:s.y,next:rand(20,140),n:0,quota:8+Math.floor(rand(0,5)),
+          move:null,exp:new Array(plays.length).fill(0),seen:new Set([h]),entered:0,venture:0,match:plays.map(()=>0)});
+      });
+      const st=[1,2,4][Math.floor(Math.random()*3)],s=spot(plays[st]);
+      firms.push({local:false,home:st,play:st,x:s.x,y:s.y,next:40,n:0,quota:3,move:null,pending:null,
+        exp:new Array(plays.length).fill(0),seen:new Set([st]),entered:0,
+        match:plays.map(()=>rand(-0.08,0.12))});            /* hidden fit between this firm and each play */
+      for(let k=0;k<1600;k++)step(true);
+    }
+    /* stylized drilling odds: unfamiliar plays are riskier; experience within a play helps;
+       a firm that keeps exploring also carries learning from play to play */
+    function hitProb(f){
+      const e=f.exp[f.play];
+      const pen=f.local?0.5:Math.max(0.1,0.5*Math.exp(-f.entered/2.2));
+      return Math.min(0.95,Math.max(0.05,0.8+f.match[f.play]-pen*Math.exp(-e/2.2)));
+    }
+    function record(arr,v){arr.push(v);if(arr.length>40)arr.shift()}
+    function moveTo(f,to,dur,trail){
+      const s=spot(plays[to]);
+      if(trail)trails.push({x0:f.x,y0:f.y,x1:s.x,y1:s.y,t:0,al:0.7,red:!f.local});
+      f.move={x0:f.x,y0:f.y,x1:s.x,y1:s.y,t:0,dur};
+    }
+    function enter(f,to){
+      if(!f.seen.has(to)){f.entered++;if(!f.local)plays[to].flash=1}
+      f.seen.add(to);f.play=to;f.n=0;
+      moveTo(f,to,60,true);
+      if(f.seen.size>=plays.length)f.seen=new Set([to]);
+    }
+    function nearestUnseen(f,k){
+      const cur=plays[f.play];
+      return plays.map((p,i)=>i).filter(i=>!f.seen.has(i))
+        .sort((a,b)=>((plays[a].cx-cur.cx)**2+(plays[a].cy-cur.cy)**2)-((plays[b].cx-cur.cx)**2+(plays[b].cy-cur.cy)**2)).slice(0,k);
+    }
+    function step(pre){
+      tick++;
+      plays.forEach(pl=>{
+        pl.ph+=0.0016;pl.flash*=0.986;
+        const inside=smouse.w>0.01&&((smouse.x-pl.cx)**2+(smouse.y-pl.cy)**2)<(pl.R*pl.ax*1.1)**2;
+        pl.hl+=((inside?smouse.w:0)-pl.hl)*0.1;
+      });
+      firms.forEach(f=>{
+        if(f.move){
+          f.move.t++;
+          const u=ease(Math.min(1,f.move.t/f.move.dur));
+          f.x=f.move.x0+(f.move.x1-f.move.x0)*u;f.y=f.move.y0+(f.move.y1-f.move.y0)*u;
+          if(f.move.t>=f.move.dur){
+            f.move=null;
+            const fam=f.exp[f.play]>=3,hit=Math.random()<hitProb(f);
+            wells.push({x:f.x,y:f.y,hit,prod:hit?Math.pow(Math.random(),0.6):0,red:!f.local,born:tick});
+            if(wells.length>MAXW)wells.shift();
+            if(fam)record(stats.fam,hit);else record(f.local?stats.oth:stats.red,hit);
+            f.exp[f.play]++;f.n++;
+            if(!pre)drills.push({x:f.x,y:f.y,r:2,al:0.55,red:!f.local});
+            f.next=f.local?rand(60,120):rand(50,85);
+          }
+          return;
+        }
+        if(f.pending){                                   /* sizing up candidate plays before committing */
+          f.pending.t++;
+          if(f.pending.t>=42){const to=f.pending.to;f.pending=null;enter(f,to)}
+          return;
+        }
+        if(--f.next>0)return;
+        if(!f.local&&f.n>=f.quota){
+          const cand=nearestUnseen(f,3);
+          if(cand.length){
+            const to=cand.reduce((a,b)=>f.match[b]>f.match[a]?b:a);
+            if(!pre)cand.forEach(c=>probes.push({x:f.x,y:f.y,c,chosen:c===to,al:0.55}));
+            f.pending={to,t:pre?42:0};f.quota=3+Math.floor(rand(0,2));return;
+          }
+        }
+        if(f.local){
+          if(f.play!==f.home&&f.n>=3){enter(f,f.home);f.n=0;return}                 /* back home after a venture */
+          if(f.play===f.home&&f.n>=f.quota&&Math.random()<0.45){
+            const c=nearestUnseen(f,2);
+            if(c.length){enter(f,c[Math.floor(Math.random()*c.length)]);f.quota=8+Math.floor(rand(0,5));return}
+          }
+        }
+        moveTo(f,f.play,26,false);
+      });
+      for(let i=drills.length-1;i>=0;i--){const d=drills[i];d.r+=(16-d.r)*0.07;d.al*=0.95;if(d.al<0.03)drills.splice(i,1)}
+      for(let i=trails.length-1;i>=0;i--){const t=trails[i];t.t=Math.min(1,t.t+0.018);if(t.t>=1)t.al*=0.97;if(t.al<0.03)trails.splice(i,1)}
+      for(let i=probes.length-1;i>=0;i--){const q=probes[i];q.al*=q.chosen?0.985:0.955;if(q.al<0.03)probes.splice(i,1)}
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      /* faint map of the contiguous U.S. */
+      ctx.beginPath();
+      US.forEach(([lo,la],i)=>{const [x,y]=proj.f(lo,la);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});
+      ctx.closePath();ctx.strokeStyle='rgba(255,255,255,0.10)';ctx.lineWidth=1;ctx.setLineDash([2,4]);ctx.stroke();ctx.setLineDash([]);
+      const wc=firms.find(x=>!x.local);
+      plays.forEach((pl,pi)=>{
+        const heat=Math.min(1,wc.exp[pi]/10);
+        for(let k=1;k<=NRING;k++){
+          const s=k/NRING;
+          ctx.beginPath();
+          for(let i=0;i<=SEG;i++){const [dx,dy]=shape(pl,i/SEG*Math.PI*2,k);i?ctx.lineTo(pl.cx+dx*s,pl.cy+dy*s):ctx.moveTo(pl.cx+dx*s,pl.cy+dy*s)}
+          ctx.closePath();
+          if(k===1&&heat>0){ctx.fillStyle=`rgba(${ACC},${0.10*heat})`;ctx.fill()}   /* the red firm's experience here */
+          ctx.strokeStyle=`rgba(255,255,255,${(0.09+0.09*s)*(1+1.3*pl.hl)})`;ctx.lineWidth=0.9;ctx.stroke();
+          if(k===NRING&&pl.flash>0.02){ctx.strokeStyle=`rgba(${ACC},${0.75*pl.flash})`;ctx.lineWidth=1.3;ctx.stroke()}
+        }
+        ctx.font='500 9.5px "JetBrains Mono", monospace';ctx.textAlign='center';ctx.textBaseline='top';
+        ctx.fillStyle=`rgba(255,255,255,${0.26+0.5*pl.hl})`;
+        ctx.fillText(pl.name,pl.cx,pl.cy+pl.R*1.05+4);
+        if(pl.flash>0.05){
+          ctx.textBaseline='bottom';ctx.fillStyle=`rgba(${ACC},${0.9*Math.min(1,pl.flash*1.4)})`;
+          ctx.fillText('new to the firm',pl.cx,pl.cy-pl.R*1.05-4);
+        }
+      });
+      probes.forEach(q=>{
+        const pl=plays[q.c];
+        ctx.setLineDash([1,4]);ctx.strokeStyle=`rgba(${ACC},${q.al*(q.chosen?1:0.6)})`;ctx.lineWidth=1;
+        ctx.beginPath();ctx.moveTo(q.x,q.y);ctx.lineTo(pl.cx,pl.cy);ctx.stroke();ctx.setLineDash([]);
+        ctx.strokeStyle=`rgba(${ACC},${q.al*(q.chosen?0.9:0.4)})`;
+        ctx.beginPath();ctx.arc(pl.cx,pl.cy,pl.R*0.35,0,Math.PI*2);ctx.stroke();
+      });
+      trails.forEach(t=>{
+        const mx=(t.x0+t.x1)/2,my=(t.y0+t.y1)/2-Math.hypot(t.x1-t.x0,t.y1-t.y0)*0.22,u=ease(t.t);
+        ctx.setLineDash([3,5]);ctx.strokeStyle=t.red?`rgba(${ACC},${Math.min(1,t.al*1.3)})`:`rgba(255,255,255,${t.al*0.45})`;
+        ctx.lineWidth=t.red?1.4:1;ctx.beginPath();ctx.moveTo(t.x0,t.y0);
+        for(let i=1;i<=24;i++){const v=i/24*u,a=(1-v)*(1-v),b=2*(1-v)*v,c=v*v;ctx.lineTo(a*t.x0+b*mx+c*t.x1,a*t.y0+b*my+c*t.y1)}
+        ctx.stroke();ctx.setLineDash([]);
+      });
+      wells.forEach(w=>{
+        const fa=Math.max(0.25,1-(tick-w.born)/3000),col=w.red?ACC:'255,255,255';
+        if(w.hit){                                          /* productive: size and glow scale with output */
+          const r=1.4+2.4*w.prod;
+          ctx.fillStyle=`rgba(${col},${(w.red?0.85:0.55)*fa})`;
+          ctx.shadowColor=`rgba(${col},0.8)`;ctx.shadowBlur=6*w.prod*fa;
+          ctx.beginPath();ctx.arc(w.x,w.y,r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+        }else{                                              /* dry hole */
+          const d=2.2;ctx.strokeStyle=`rgba(${col},${(w.red?0.7:0.45)*fa})`;ctx.lineWidth=1;
+          ctx.beginPath();ctx.moveTo(w.x-d,w.y-d);ctx.lineTo(w.x+d,w.y+d);ctx.moveTo(w.x+d,w.y-d);ctx.lineTo(w.x-d,w.y+d);ctx.stroke();
+        }
+      });
+      drills.forEach(d=>{
+        ctx.strokeStyle=`rgba(${d.red?ACC:'255,255,255'},${d.al})`;ctx.lineWidth=1;
+        ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.stroke();
+      });
+      firms.forEach(f=>{
+        const s=f.local?3.6:4.8;
+        ctx.beginPath();ctx.moveTo(f.x,f.y-s*1.5);ctx.lineTo(f.x-s,f.y+s*0.6);ctx.lineTo(f.x+s,f.y+s*0.6);ctx.closePath();
+        if(f.local){ctx.strokeStyle='rgba(255,255,255,0.6)';ctx.lineWidth=1;ctx.stroke()}
+        else{ctx.fillStyle=`rgba(${ACC},0.95)`;ctx.shadowColor=`rgba(${ACC},0.9)`;ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0}
+      });
+      veil(0.30);
+    }
+    function onClick(p){
+      let best=-1,bd=Infinity;
+      plays.forEach((pl,i)=>{const d=(pl.cx-p.x)**2+(pl.cy-p.y)**2;if(d<bd){bd=d;best=i}});
+      const f=firms.find(x=>!x.local);
+      if(best<0||best===f.play)return;
+      f.move=null;f.pending=null;enter(f,best);
+    }
+    function rate(a){return a.length?Math.round(100*a.filter(Boolean).length/a.length)+'%':'–'}
+    function stat(){
+      return '<span class="k">● productive</span><span class="k">× dry</span>'+
+        '<span>Simulated hit rate in new plays: <b>red firm '+rate(stats.red)+'</b> · other firms '+rate(stats.oth)+
+        ' · familiar plays '+rate(stats.fam)+'</span>';
+    }
+    const api={build,step,draw,onClick,stat,
+      short:'Most firms stay in the shale plays they know; one keeps exploring new ones.',
+      caption:'Shale plays across the U.S. Most firms stay in the plays they know; one firm (red) keeps entering new ones. New plays bring more dry holes, but it learns to lose less each time. Click a play to send it there.',
+      cite:{text:'Saxena, Chang & Ethiraj (2025), Academy of Management Proceedings',href:'https://doi.org/10.5465/AMPROC.2025.17004abstract'}};
+    return api;
+  }
+
+  /* ================= Visual 5: one investor tie, bridge or barrier ================= */
+  function Portfolio(){
+    const STAGES=['Pre','P1','P2','P3'],RATE=0.0046;       /* P2 and P3 count as late */
+    let L,tick,stage,peerA,exiting,lm,parts,atts,ins,nextAtt,nextPart,doorFlash,vcFlash;
+    function layout(){
+      const n=W<820;
+      const vc=n?[0.50,0.15]:[0.86,0.15],mk=n?[0.64,0.74]:[0.85,0.62],fo=n?[0.20,0.50]:[0.69,0.37];
+      const R=Math.max(58,Math.min(W,H)*0.14);
+      const m={cx:mk[0]*W,cy:mk[1]*H,R};
+      const f={x:fo[0]*W,y:fo[1]*H};
+      const a=Math.atan2(f.y-m.cy,f.x-m.cx);
+      L={vc:{x:vc[0]*W,y:vc[1]*H},m,f,a,
+        door:{x:m.cx+Math.cos(a)*m.R,y:m.cy+Math.sin(a)*m.R*0.85},
+        peer:{x:m.cx+m.R*0.32,y:m.cy+m.R*0.18}};
+    }
+    function build(){
+      layout();tick=0;stage=0;peerA=0;exiting=false;lm=0;parts=[];atts=[];ins=[];
+      nextAtt=60;nextPart=0;doorFlash=0;vcFlash=0;
+    }
+    function lerp(a,b,u){return {x:a.x+(b.x-a.x)*u,y:a.y+(b.y-a.y)*u}}
+    function attempt(){if(!exiting)atts.push({u:0,back:false,tgt:spotIn()})}
+    function spotIn(){
+      const m=L.m,a=rand(0,6.28),r=m.R*Math.sqrt(rand(0.05,0.55));
+      return {x:m.cx-m.R*0.25+Math.cos(a)*r*0.8,y:m.cy+Math.sin(a)*r*0.7};
+    }
+    function step(){
+      tick++;
+      if(exiting){
+        peerA-=0.02;ins.forEach(d=>d.a*=0.96);
+        if(peerA<=0){stage=0;peerA=0;exiting=false;ins=[];atts=[];nextAtt=50}
+      }else{
+        peerA=Math.min(1,peerA+0.03);stage+=RATE;
+        if(stage>=4){stage=4;exiting=true}
+      }
+      const late=stage>=2&&!exiting;
+      lm+=((late?1:0)-lm)*0.06;
+      doorFlash*=0.93;vcFlash*=0.94;
+      /* while the peer is early in trials, knowledge flows peer -> investor -> startup */
+      if(!late&&!exiting&&peerA>0.6&&--nextPart<=0){parts.push({u:0});nextPart=10}
+      for(let i=parts.length-1;i>=0;i--){parts[i].u+=0.011;if(parts[i].u>=1)parts.splice(i,1)}
+      if(--nextAtt<=0){attempt();nextAtt=78+rand(0,24)}
+      for(let i=atts.length-1;i>=0;i--){
+        const t=atts[i];
+        if(t.back){t.u-=0.02;if(t.u<=0)atts.splice(i,1);continue}
+        t.u+=0.016;
+        if(t.u>=1&&t.u<1.016&&lm>0.5){t.back=true;t.u=1;doorFlash=1;vcFlash=1;continue}   /* held back at the door */
+        if(t.u>=1.6){ins.push({x:t.tgt.x,y:t.tgt.y,a:1});atts.splice(i,1);if(ins.length>12)ins.shift()}
+      }
+    }
+    function curve(a,b,bend,al,rgb,w,dash){
+      const mx=(a.x+b.x)/2+bend,my=(a.y+b.y)/2;
+      ctx.setLineDash(dash||[]);ctx.strokeStyle=`rgba(${rgb},${al})`;ctx.lineWidth=w;
+      ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.quadraticCurveTo(mx,my,b.x,b.y);ctx.stroke();ctx.setLineDash([]);
+      return {mx,my};
+    }
+    function qb(a,c,b,u){const v=1-u;return {x:v*v*a.x+2*v*u*c.x+u*u*b.x,y:v*v*a.y+2*v*u*c.y+u*u*b.y}}
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      const {vc,m,f,door,peer}=L,mono='"JetBrains Mono", monospace';
+      /* market */
+      ctx.setLineDash([2,4]);ctx.strokeStyle='rgba(255,255,255,0.22)';ctx.lineWidth=1;
+      ctx.beginPath();ctx.ellipse(m.cx,m.cy,m.R,m.R*0.85,0,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+      ctx.font=`500 10px ${mono}`;ctx.textAlign='center';ctx.textBaseline='top';
+      ctx.fillStyle='rgba(255,255,255,0.42)';ctx.fillText('a cancer market',m.cx,m.cy+m.R*0.85+8);
+      /* the path the startup would take into the market */
+      ctx.setLineDash([3,5]);ctx.strokeStyle='rgba(255,255,255,0.18)';ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(f.x,f.y);ctx.lineTo(door.x,door.y);ctx.stroke();ctx.setLineDash([]);
+      /* investor ties */
+      const c1=curve(vc,peer,18,0.35*peerA,'255,255,255',1);
+      const c2=curve(vc,f,-18,0.35+0.25*(1-lm),(lm>0.5?'255,255,255':ACC),1.2+0.6*(1-lm));
+      /* knowledge particles: peer -> investor -> startup */
+      parts.forEach(p=>{
+        const pt=p.u<0.5?qb(peer,{x:c1.mx,y:c1.my},vc,p.u*2):qb(vc,{x:c2.mx,y:c2.my},f,(p.u-0.5)*2);
+        ctx.fillStyle=`rgba(${ACC},${0.9*(1-lm)})`;ctx.beginPath();ctx.arc(pt.x,pt.y,2.1,0,Math.PI*2);ctx.fill();
+      });
+      /* the door: closes once the peer is close to market */
+      if(lm>0.02){
+        const nx=-Math.sin(L.a),ny=Math.cos(L.a),s=16+6*doorFlash;
+        ctx.strokeStyle=`rgba(${ACC},${lm})`;ctx.lineWidth=2.6+1.5*doorFlash;
+        ctx.beginPath();ctx.moveTo(door.x-nx*s,door.y-ny*s);ctx.lineTo(door.x+nx*s,door.y+ny*s);ctx.stroke();
+      }
+      /* the startup's entry attempts */
+      atts.forEach(t=>{
+        const p=t.u<=1?lerp(f,door,ease(t.u)):lerp(door,t.tgt,ease((t.u-1)/0.6));
+        ctx.fillStyle=`rgba(${ACC},0.9)`;ctx.shadowColor=`rgba(${ACC},0.9)`;ctx.shadowBlur=8;
+        ctx.beginPath();ctx.arc(p.x,p.y,2.8,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+      });
+      ins.forEach(d=>{ctx.fillStyle=`rgba(${ACC},${0.7*d.a})`;ctx.beginPath();ctx.arc(d.x,d.y,2.6,0,Math.PI*2);ctx.fill()});
+      /* peer with its trial-stage ring */
+      const st=Math.min(3,Math.floor(stage)),late=stage>=2;
+      ctx.strokeStyle=`rgba(255,255,255,${0.15*peerA})`;ctx.lineWidth=2.5;
+      ctx.beginPath();ctx.arc(peer.x,peer.y,11,0,Math.PI*2);ctx.stroke();
+      ctx.strokeStyle=`rgba(255,255,255,${(late?0.9:0.55)*peerA})`;ctx.lineWidth=late?2.8:2;
+      ctx.beginPath();ctx.arc(peer.x,peer.y,11,-Math.PI/2,-Math.PI/2+Math.min(1,stage/4)*Math.PI*2);ctx.stroke();
+      ctx.fillStyle=`rgba(255,255,255,${0.75*peerA})`;ctx.beginPath();ctx.arc(peer.x,peer.y,4,0,Math.PI*2);ctx.fill();
+      ctx.font=`500 10px ${mono}`;ctx.textAlign='left';ctx.textBaseline='middle';
+      ctx.fillStyle=`rgba(255,255,255,${0.6*peerA})`;
+      ctx.fillText(exiting?'peer · reaches market':'peer · '+STAGES[st],peer.x+17,peer.y);
+      /* investor */
+      const s=8;ctx.beginPath();ctx.moveTo(vc.x,vc.y-s);ctx.lineTo(vc.x+s,vc.y);ctx.lineTo(vc.x,vc.y+s);ctx.lineTo(vc.x-s,vc.y);ctx.closePath();
+      ctx.fillStyle=vcFlash>0.05?`rgba(${ACC},${0.5+0.5*vcFlash})`:'rgba(255,255,255,0.75)';ctx.fill();
+      ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillStyle='rgba(255,255,255,0.5)';
+      ctx.fillText('shared investor',vc.x,vc.y-12);
+      /* startup */
+      ctx.fillStyle=`rgba(${ACC},0.95)`;ctx.shadowColor=`rgba(${ACC},0.9)`;ctx.shadowBlur=12;
+      ctx.beginPath();ctx.arc(f.x,f.y,5,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+      ctx.textAlign='center';ctx.textBaseline='top';ctx.fillStyle=`rgba(${ACC},0.85)`;ctx.fillText('startup',f.x,f.y+10);
+      /* the verdict on the tie */
+      const tag=lm>0.5?'barrier':'bridge',sub=lm>0.5?'peer near market: investor holds the startup back':'peer early in trials: knowledge flows, startup enters';
+      ctx.font=`500 10px ${mono}`;
+      const tx=Math.max(8,Math.min(f.x-4,W-12-ctx.measureText(sub).width)),ty=f.y+46;   /* below the startup, kept on screen */
+      ctx.textAlign='left';ctx.textBaseline='bottom';ctx.font=`600 15px ${mono}`;
+      ctx.fillStyle=`rgba(${ACC},${exiting?0.3:0.95})`;ctx.fillText(tag,tx,ty);
+      ctx.font=`500 10px ${mono}`;ctx.textBaseline='top';ctx.fillStyle=`rgba(255,255,255,${exiting?0.2:0.55})`;
+      ctx.fillText(sub,tx,ty+4);
+      veil(0.22);
+    }
+    function onClick(){attempt()}
+    const api={build,step,draw,onClick,
+      short:'The same investor tie can be a bridge or a barrier for a startup.',
+      caption:'The same investor tie can be a bridge or a barrier, depending on how close the peer is to market. Click to make the startup try to enter.',
+      cite:{text:'Balachandran, Chang & Kang, working paper',href:'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4993926'}};
     return api;
   }
 
@@ -1324,31 +1814,629 @@ if(!reduced){
     return api;
   }
 
+  /* ================= Visual 6: DRAM foundries lose their licensed designs ================= */
+  function Dram(){
+    const SAMPLES=260,EVERY=3,PAD_R=34,T=560,NW=4,NF=2,MLO=-50,MHI=36;
+    let firms,tick,th,amp,ns,marks,lic,shocks,packets,pulses,nextRel,phase,phaseT,fadeA,resetting;
+    const TAGS={on:'licensed designs',cut:'',down:'downturn: falls further',up:'upturn: recovers less',behind:'no new designs',resume:''};
+    const P=()=>amp*Math.sin(th);
+    function build(){
+      firms=[];tick=0;amp=1;
+      /* time the first peak so the cut lands where both sides of it stay in view */
+      th=Math.PI/2-((reduced?271:70)+SAMPLES*EVERY)*Math.PI*2/T;ns=0;marks=[];lic=1;shocks=[];packets=[];pulses=[];
+      nextRel=60;phase='on';phaseT=0;fadeA=0;resetting=0;
+      for(let i=0;i<NW;i++){const b=rand(6,13);firms.push({rd:1,b,m:b,lag:0,hist:[],dim:0.17+Math.random()*0.08})}
+      for(let i=0;i<NF;i++){const b=rand(8,12);firms.push({rd:0,b,m:b,lag:0,hist:[]})}
+      firms.priceH=[];
+      for(let k=0;k<SAMPLES*EVERY;k++)step(true);
+    }
+    function setLic(on){
+      if(on===lic)return;
+      lic=on;shocks.push({n:ns,on});setPhase(on?'resume':'cut');
+    }
+    function setPhase(p){if(p!==phase){phase=p;phaseT=0}}
+    function release(pre){                                  /* an R&D firm introduces a new chip design */
+      const w=Math.floor(Math.random()*NW);
+      if(!pre)pulses.push({f:w,r:4,al:0.55});
+      for(let j=NW;j<NW+NF;j++){
+        firms[j].lag=Math.min(5,firms[j].lag+1);
+        if(lic){
+          if(pre)firms[j].lag=0;
+          else packets.push({from:w,to:j,t:0,dur:46+Math.random()*16});
+        }
+      }
+    }
+    function step(pre){
+      tick++;phaseT++;
+      const prevS=Math.sin(th),prevC=Math.cos(th);
+      th+=Math.PI*2/T;
+      const s=Math.sin(th),c=Math.cos(th);
+      if(prevS<0&&s>=0)amp=0.85+Math.random()*0.25;
+      if(prevS>=0&&s<0)marks.push({n:ns,t:'downturn'});
+      if(prevS<0&&s>=0)marks.push({n:ns,t:'upturn'});
+      if(!pre&&prevC>0&&c<=0&&lic&&!shocks.length)setLic(0);   /* the first downturn ends design licensing */
+      if(--nextRel<=0){release(pre);nextRel=90+Math.random()*60}
+      const p=P(),down=Math.max(0,-p);
+      firms.forEach(f=>{
+        let tgt=f.b+12*p;
+        if(!f.rd)tgt-=4.6*f.lag*(1+0.8*down);                /* older designs hurt more when prices fall */
+        f.m+=(tgt-f.m)*0.05;
+      });
+      for(let i=packets.length-1;i>=0;i--){
+        const q=packets[i];q.t++;
+        if(q.t>=q.dur){firms[q.to].lag=0;packets.splice(i,1)}
+      }
+      for(let i=pulses.length-1;i>=0;i--){
+        const q=pulses[i];q.r+=(20-q.r)*0.06;q.al*=0.955;if(q.al<0.03)pulses.splice(i,1);
+      }
+      if(!pre){
+        if(phase==='cut'&&phaseT>170)setPhase('behind');
+        if(phase==='resume'&&phaseT>170)setPhase('on');
+        if(!lic&&phase!=='cut'){setPhase(p<0&&c<0?'down':(c>=0&&p<0.3?'up':'behind'))}
+        const s0=shocks[0];
+        if(s0&&ns-s0.n>SAMPLES*0.9)resetting=1;              /* once the cut scrolls off, replay the story */
+        if(resetting){fadeA-=0.02;if(fadeA<=0){build();return}}
+        else fadeA=Math.min(1,fadeA+0.03);
+      }
+      if(tick%EVERY===0){
+        ns++;
+        firms.forEach(f=>{f.hist.push(f.m);if(f.hist.length>SAMPLES)f.hist.shift()});
+        firms.priceH.push(p);if(firms.priceH.length>SAMPLES)firms.priceH.shift();
+        while(marks.length&&ns-marks[0].n>SAMPLES)marks.shift();
+        while(shocks.length>1&&ns-shocks[0].n>SAMPLES)shocks.shift();
+      }
+    }
+    const xs=new Float32Array(SAMPLES),ys=new Float32Array(SAMPLES);
+    function band(){return {top:H*0.17,bot:H*0.64,ptop:H*0.73,pbot:H*0.91}}
+    function fade(rgb,a){
+      const g=ctx.createLinearGradient(0,0,W-PAD_R,0);
+      g.addColorStop(0,`rgba(${rgb},0)`);
+      g.addColorStop(0.45,`rgba(${rgb},${a*0.38})`);
+      g.addColorStop(1,`rgba(${rgb},${a})`);
+      return g;
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      ctx.globalAlpha=reduced?1:Math.max(0,fadeA);
+      const B=band(),PW=W-PAD_R;
+      const yOf=v=>B.bot-(Math.max(MLO,Math.min(MHI,v))-MLO)/(MHI-MLO)*(B.bot-B.top);
+      const pr=firms.priceH,np=pr.length,off=SAMPLES-np;
+      const xAt=i=>(i+off)/(SAMPLES-1)*PW;
+      const alphaAt=x=>Math.min(1,Math.max(0,(x/PW-0.25)/0.3));
+      const pmid=(B.ptop+B.pbot)/2,pamp=(B.pbot-B.ptop)/2/1.15;
+      /* the silicon cycle along the bottom */
+      for(let i=0;i<np;i++){xs[i]=xAt(i);ys[i]=pmid-pr[i]*pamp}
+      smoothPath(xs,ys,np);
+      ctx.strokeStyle=fade('255,255,255',0.30);ctx.lineWidth=1;ctx.stroke();
+      ctx.lineTo(xs[np-1],B.pbot+6);ctx.lineTo(xs[0],B.pbot+6);ctx.closePath();
+      ctx.fillStyle=fade('255,255,255',0.05);ctx.fill();
+      ctx.font='500 10px "JetBrains Mono", monospace';
+      ctx.textAlign='right';ctx.textBaseline='top';ctx.fillStyle='rgba(255,255,255,0.32)';
+      ctx.fillText('silicon cycle',PW-10,B.pbot+27);   /* second line, so cut labels never collide */
+      ctx.textAlign='center';ctx.textBaseline='top';
+      marks.forEach(mk=>{
+        const i=np-1-(ns-mk.n);if(i<0)return;
+        const x=xAt(i),a=0.45*alphaAt(x);if(a<0.02||x>PW-120)return;
+        ctx.fillStyle=`rgba(255,255,255,${a})`;
+        ctx.fillText(mk.t,x,B.pbot+12);
+      });
+      /* licensing cut (and any resumption) as a vertical marker */
+      shocks.forEach(sh=>{
+        const i=np-1-(ns-sh.n);if(i<0)return;
+        const x=xAt(i),a=alphaAt(x);if(a<0.02)return;
+        const rgb=sh.on?'255,255,255':ACC;
+        ctx.setLineDash([3,5]);ctx.strokeStyle=`rgba(${rgb},${0.38*a})`;ctx.lineWidth=1;
+        ctx.beginPath();ctx.moveTo(x,B.top-6);ctx.lineTo(x,B.pbot+8);ctx.stroke();ctx.setLineDash([]);
+        ctx.textAlign='center';ctx.textBaseline='top';                    /* label sits below the buttons, clear of the copy */
+        ctx.fillStyle=`rgba(${rgb},${Math.min(1,1.6*a)})`;
+        ctx.fillText(sh.on?'licensing resumes':'licensing stops',Math.min(x,PW-60),B.pbot+12);
+      });
+      /* break-even */
+      const y0=yOf(0);
+      ctx.setLineDash([2,5]);ctx.strokeStyle=fade('255,255,255',0.18);ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(0,y0);ctx.lineTo(PW,y0);ctx.stroke();ctx.setLineDash([]);
+      /* operating margins: R&D firms (white) under the foundries (red) */
+      ctx.lineJoin='round';ctx.lineCap='round';
+      firms.forEach(f=>{
+        const n=f.hist.length,o=SAMPLES-n;
+        for(let i=0;i<n;i++){xs[i]=(i+o)/(SAMPLES-1)*PW;ys[i]=yOf(f.hist[i])}
+        smoothPath(xs,ys,n);
+        if(f.rd){ctx.strokeStyle=fade('255,255,255',f.dim);ctx.lineWidth=0.9;ctx.stroke()}
+        else{
+          ctx.strokeStyle=fade(ACC,0.09);ctx.lineWidth=5;ctx.stroke();
+          ctx.strokeStyle=fade(ACC,0.85);ctx.lineWidth=1.6;ctx.stroke();
+        }
+      });
+      const hy=f=>yOf(f.hist[f.hist.length-1]);
+      /* licensed designs travel from R&D firms to the foundries */
+      packets.forEach(q=>{
+        const y1=hy(firms[q.from]),y2=hy(firms[q.to]),u=ease(q.t/q.dur);
+        const cx=PW+26,cy=(y1+y2)/2,v=1-u;
+        const x=v*v*PW+2*v*u*cx+u*u*PW,y=v*v*y1+2*v*u*cy+u*u*y2;
+        ctx.strokeStyle=`rgba(255,255,255,0.10)`;ctx.lineWidth=1;
+        ctx.beginPath();ctx.moveTo(PW,y1);ctx.quadraticCurveTo(cx,cy,PW,y2);ctx.stroke();
+        ctx.fillStyle=`rgba(255,255,255,${0.85*Math.sin(Math.PI*Math.min(1,q.t/q.dur))+0.1})`;
+        ctx.beginPath();ctx.arc(x,y,2,0,Math.PI*2);ctx.fill();
+      });
+      pulses.forEach(q=>{
+        ctx.strokeStyle=`rgba(255,255,255,${q.al})`;ctx.lineWidth=1;
+        ctx.beginPath();ctx.arc(PW,hy(firms[q.f]),q.r,0,Math.PI*2);ctx.stroke();
+      });
+      firms.forEach(f=>{
+        const y=hy(f);
+        if(f.rd){ctx.fillStyle=`rgba(255,255,255,${0.3+f.dim*1.6})`;ctx.beginPath();ctx.arc(PW,y,2,0,Math.PI*2);ctx.fill()}
+        else{
+          ctx.fillStyle=`rgba(${ACC},0.95)`;ctx.shadowColor=`rgba(${ACC},0.9)`;ctx.shadowBlur=9;
+          ctx.beginPath();ctx.arc(PW,y,3.2,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+        }
+      });
+      /* phase tag beside the lower foundry */
+      let lo=firms[NW];for(let j=NW;j<NW+NF;j++)if(firms[j].m<lo.m)lo=firms[j];
+      const ly=hy(lo),ta=Math.min(1,phaseT/25);
+      if(ta>0.01&&TAGS[phase]){
+        ctx.font='500 11px "JetBrains Mono", monospace';ctx.textAlign='right';
+        const below=ly<B.top+24;ctx.textBaseline=below?'top':'bottom';
+        ctx.fillStyle=`rgba(${ACC},${0.9*ta})`;
+        ctx.fillText(TAGS[phase],PW-12,below?ly+10:ly-10);
+      }
+      veil(0.40);
+      ctx.globalAlpha=1;
+    }
+    function onClick(){if(!resetting)setLic(lic?0:1)}
+    function stat(){
+      const np=firms[0].hist.length,cut=shocks.find(s=>!s.on);
+      const idx=cut?np-1-(ns-cut.n):-1;
+      function gap(a,b){
+        let s=0,k=0;
+        for(let i=Math.max(0,a);i<Math.min(np,b);i++){
+          let w=0,r=0;firms.forEach(f=>{if(f.rd)w+=f.hist[i];else r+=f.hist[i]});
+          s+=r/NF-w/NW;k++;
+        }
+        return k?Math.round(s/k):null;
+      }
+      const fmt=v=>v===null?'–':'<b>'+(v<0?'−':v>0?'+':'')+Math.abs(v)+'</b>';
+      const before=idx>0?gap(0,idx):gap(0,np),after=idx>0?gap(idx,np):null;
+      return '<span>Simulated margin gap, foundries vs. R&amp;D firms: before the cut '+fmt(before)+
+        (idx>0?' · after '+fmt(after):'')+' pts</span>';
+    }
+    const api={build,step,draw,onClick,stat,
+      short:'When design licensing stopped in the 2007 downturn, firms without R&D fell further behind.',
+      caption:'DRAM makers through the silicon cycle. Foundries (red) had no R&D unit and licensed chip designs from firms that did (white). When the 2007 downturn hit, licensing stopped, and the foundries’ margins fell much further. Click to cut or restore licensing.',
+      cite:{text:'Chang, working paper: a natural experiment in the DRAM industry'}};
+    return api;
+  }
+
+  /* ================= Visual 4: search anchored in markets, free across technology ================= */
+  function Bottleneck(){
+    const NR=11,PTS=140,ROPE=1.35;                  /* rope length, in market rows */
+    let ridges,opps,t,A,F,ph,pt,tgt,bits,pats,tag,tagT,spawnT,nextReach,flash;
+    const X0=()=>W<820?W*0.1:W*0.6;
+    const rowY=k=>ridges[k].y0;
+    function build(){
+      ridges=[];opps=[];t=0;bits=[];pats=[];tag='';tagT=0;flash=0;
+      const top=H*0.2,bot=H*0.9;
+      for(let k=0;k<NR;k++){
+        const waves=[];
+        for(let i=0;i<3;i++)waves.push({A:(5+Math.random()*8)/(i+1),f:(0.9+Math.random()*1.4)*(i+1)*2*Math.PI/W,
+          p:Math.random()*Math.PI*2,s:(Math.random()<0.5?-1:1)*(0.002+Math.random()*0.004)*(i+1)});
+        ridges.push({y0:top+(bot-top)*k/(NR-1),waves});
+      }
+      const D=rowY(1)-rowY(0);
+      A={k:5,x:X0()+(W-X0())*0.7,y:rowY(5)};          /* the anchor rides the firm's home market */
+      F={x:A.x,y:A.y-D*0.5,vx:0,vy:0};
+      ph='idle';pt=0;tgt=null;spawnT=20;nextReach=false; /* first show the tether pulling taut */
+      spawn();nextReach=true;spawn();
+    }
+    function spawn(){
+      const D=rowY(1)-rowY(0),x0=X0(),span=W-x0;
+      let k;
+      if(nextReach)k=Math.max(0,Math.min(NR-1,A.k+(Math.random()<0.5?-1:1)));
+      else{const c=[];for(let j=0;j<NR;j++)if(Math.abs(j-A.k)>=3)c.push(j);k=c[Math.floor(Math.random()*c.length)]}
+      let x;let tries=0;
+      do{x=x0+span*(0.06+Math.random()*0.88);tries++}while(Math.abs(x-A.x)<span*0.35&&tries<20);  /* always far in technology */
+      opps.push({k,x,g:0,reach:nextReach,done:0,age:0});
+      nextReach=!nextReach;
+    }
+    function yOf(k,x){
+      const r=ridges[k];let h=0;
+      for(const w of r.waves)h+=w.A*Math.sin(w.f*x+w.p+w.s*t);
+      return r.y0-h;
+    }
+    function setPh(p){ph=p;pt=0}
+    function setTag(s){tag=s;tagT=0}
+    function step(){
+      t++;pt++;tagT++;if(flash>0)flash--;
+      const D=rowY(1)-rowY(0),ropeMax=ROPE*D;
+      opps.forEach(o=>{o.age++;o.g=o.done?Math.max(0,o.g-0.03):Math.min(1,o.g+0.03)});
+      for(let i=opps.length-1;i>=0;i--)if(opps[i].done&&opps[i].g<=0)opps.splice(i,1);
+      if(--spawnT<=0&&opps.filter(o=>!o.done).length<2){spawn();spawnT=90}
+      let fx=F.x,fy=F.y;
+      if(ph==='idle'){
+        fx=A.x+Math.sin(t*0.02)*14;fy=A.y-D*0.5+Math.sin(t*0.031)*4;
+        if(pt>70){
+          const cand=opps.filter(o=>!o.done&&o.g>0.9);
+          if(cand.length){tgt=cand[0];setPh('slide');setTag('moves freely across technology')}
+        }
+      }else if(ph==='slide'){                          /* the anchor glides along its own market */
+        A.x+=(tgt.x-A.x)*0.06;fx=A.x;fy=A.y-D*0.5;
+        if(Math.abs(tgt.x-A.x)<2){A.x=tgt.x;setPh('reach');setTag(tgt.reach?'steps into an adjacent market':'pulls toward a distant market')}
+      }else if(ph==='reach'){
+        const ty=rowY(tgt.k)-6,dy=ty-A.y,lim=Math.sign(dy)*Math.min(Math.abs(dy),ropeMax);
+        fx=A.x;fy=F.y+((A.y+lim)-F.y)*0.07;
+        if(!tgt.reach&&Math.abs(fy-(A.y+lim))<3){setPh('strain');flash=60;setTag('anchored: no market tie')}
+        if(tgt.reach&&Math.abs(fy-ty)<2){setPh('drop');setTag('enters')}
+      }else if(ph==='strain'){                         /* tether taut; the firm cannot get there */
+        const dy=rowY(tgt.k)-A.y,lim=Math.sign(dy)*ropeMax;
+        fx=A.x+Math.sin(pt*0.5)*2.5*Math.max(0,1-pt/70);fy=A.y+lim+Math.sin(pt*0.35)*3*Math.max(0,1-pt/70);
+        if(pt>110){tgt.done=1;setPh('back');setTag('')}
+      }else if(ph==='back'){
+        fx=A.x;fy=F.y+((A.y-D*0.5)-F.y)*0.08;
+        if(pt>50){setPh('idle')}
+      }else if(ph==='drop'){                           /* the anchor resets one market over */
+        fx=A.x;fy=rowY(tgt.k)-6;
+        A.y+=(rowY(tgt.k)-A.y)*0.08;
+        if(Math.abs(A.y-rowY(tgt.k))<1){A.y=rowY(tgt.k);A.k=tgt.k;tgt.done=1;setPh('ally');setTag('then allies for technology')}
+      }else if(ph==='ally'){
+        fx=A.x;fy=rowY(A.k)-6-D*0.5*Math.min(1,pt/40);
+        if(pt%12===0&&pt<96)bits.push({x0:W+10,y0:H*(0.1+Math.random()*0.8),t:0,dur:60+Math.random()*20});
+        if(pt>130){setPh('rd');setTag('and builds its own patents')}
+      }else if(ph==='rd'){
+        fx=A.x+Math.sin(t*0.02)*14;fy=A.y-D*0.5;
+        if(pt%24===0&&pt<130)pats.push({k:A.k,x:A.x,n:pats.filter(p=>p.k===A.k&&Math.abs(p.x-A.x)<30).length,t:0});
+        if(pt>170){setPh('idle');setTag('')}
+      }
+      F.x=fx;F.y=fy;
+      for(let i=bits.length-1;i>=0;i--){bits[i].t++;if(bits[i].t>=bits[i].dur)bits.splice(i,1)}
+      pats.forEach(p=>p.t++);while(pats.length>20)pats.shift();
+    }
+    function anchorGlyph(x,y,a){
+      ctx.strokeStyle=`rgba(${ACC},${a})`;ctx.lineWidth=1.6;
+      ctx.beginPath();ctx.arc(x,y-11,2.6,0,Math.PI*2);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(x,y-8.5);ctx.lineTo(x,y+5);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(x-5,y-4);ctx.lineTo(x+5,y-4);ctx.stroke();
+      ctx.beginPath();ctx.arc(x,y-2,7,0.2*Math.PI,0.8*Math.PI);ctx.stroke();
+    }
+    const px=new Float32Array(PTS+1),py=new Float32Array(PTS+1);
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      const D=rowY(1)-rowY(0),x0=X0(),ropeMax=ROPE*D;
+      ctx.lineJoin='round';ctx.lineCap='round';
+      /* markets as ridgelines; the home market is the rail the anchor rides */
+      for(let k=0;k<NR;k++){
+        for(let i=0;i<=PTS;i++){px[i]=i/PTS*W;py[i]=yOf(k,px[i])}
+        smoothPath(px,py,PTS+1);
+        const home=Math.abs(rowY(k)-A.y)<1;
+        ctx.strokeStyle=home?`rgba(${ACC},0.75)`:'rgba(255,255,255,0.13)';ctx.lineWidth=home?1.6:0.8;ctx.stroke();
+      }
+      /* reach: how far the tether lets the firm go across markets */
+      const g=ctx.createLinearGradient(x0-140,0,W,0);
+      g.addColorStop(0,`rgba(${ACC},0)`);g.addColorStop(0.3,`rgba(${ACC},0.07)`);g.addColorStop(1,`rgba(${ACC},0.09)`);
+      ctx.fillStyle=g;ctx.fillRect(x0-140,A.y-ropeMax,W-x0+140,2*ropeMax);
+      /* labels for the two directions */
+      ctx.font='500 11px "JetBrains Mono", monospace';
+      ctx.textAlign='right';ctx.textBaseline='bottom';ctx.fillStyle=`rgba(${ACC},0.85)`;
+      ctx.fillText('home market',W-18,A.y-ropeMax-6);
+      ctx.fillStyle='rgba(255,255,255,0.6)';ctx.textBaseline='top';
+      ctx.fillText('technology: free ↔',W-18,H*0.93);
+      ctx.save();ctx.translate(W-12,A.y);ctx.rotate(-Math.PI/2);ctx.textAlign='center';ctx.textBaseline='bottom';
+      ctx.fillStyle=`rgba(${ACC},0.75)`;ctx.fillText('markets: anchored ↕',0,0);ctx.restore();
+      /* patents built after entry */
+      pats.forEach(p=>{
+        const a=Math.min(1,p.t/20)*Math.max(0.35,1-p.t/1600),y=rowY(p.k)+8+p.n*6;
+        ctx.fillStyle=`rgba(255,255,255,${0.85*a})`;ctx.fillRect(p.x+10,y,6,4);
+      });
+      /* opportunities */
+      opps.forEach(o=>{
+        if(o.g<=0)return;
+        const y=yOf(o.k,o.x)-6,a=o.g,r=12;
+        if(o.reach){
+          ctx.fillStyle=`rgba(${ACC},${0.2*a})`;ctx.beginPath();ctx.arc(o.x,y,r*1.8,0,Math.PI*2);ctx.fill();
+          ctx.strokeStyle=`rgba(${ACC},${0.95*a})`;ctx.lineWidth=1.6;ctx.beginPath();ctx.arc(o.x,y,r,0,Math.PI*2);ctx.stroke();
+        }else{
+          ctx.strokeStyle=`rgba(255,255,255,${0.7*a})`;ctx.lineWidth=1.4;ctx.setLineDash([3,3]);
+          ctx.beginPath();ctx.arc(o.x,y,r,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+        }
+      });
+      /* the gap the tether cannot close */
+      if(tgt&&(ph==='strain')){
+        const y=yOf(tgt.k,tgt.x)-6;
+        ctx.setLineDash([2,4]);ctx.strokeStyle='rgba(255,255,255,0.45)';ctx.lineWidth=1;
+        ctx.beginPath();ctx.moveTo(F.x,F.y);ctx.lineTo(tgt.x,y+(F.y<y?-12:12));ctx.stroke();ctx.setLineDash([]);
+      }
+      /* alliances bring technology in */
+      bits.forEach(b=>{
+        const u=ease(b.t/b.dur),x=b.x0+(F.x-b.x0)*u,y=b.y0+(F.y-b.y0)*u;
+        ctx.fillStyle=`rgba(255,255,255,${0.9*Math.sin(Math.PI*Math.min(1,b.t/b.dur))})`;
+        ctx.beginPath();ctx.arc(x,y,2.4,0,Math.PI*2);ctx.fill();
+      });
+      /* tether: slack when close, taut and bright at full length */
+      const ax=A.x,ay=A.y-12,dx=F.x-ax,dy=F.y-ay,len=Math.hypot(dx,dy);
+      const taut=Math.min(1,len/ropeMax),sag=(1-taut)*22;
+      ctx.strokeStyle=`rgba(${ACC},${0.45+0.5*taut})`;ctx.lineWidth=1+1.4*taut+(flash>0?1:0);
+      ctx.beginPath();ctx.moveTo(ax,ay);ctx.quadraticCurveTo((ax+F.x)/2+sag,(ay+F.y)/2+sag*0.3,F.x,F.y);ctx.stroke();
+      anchorGlyph(A.x,A.y,0.95);
+      /* the firm */
+      ctx.fillStyle=`rgba(${ACC},1)`;ctx.shadowColor=`rgba(${ACC},0.95)`;ctx.shadowBlur=18;
+      ctx.beginPath();ctx.arc(F.x,F.y,6,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+      if(tag){
+        const a=Math.min(1,tagT/20);
+        ctx.font='500 12px "JetBrains Mono", monospace';ctx.textBaseline='bottom';
+        const right=F.x>W*0.74;ctx.textAlign=right?'right':'left';
+        ctx.fillStyle=`rgba(${ACC},${a})`;ctx.fillText(tag,F.x+(right?-14:14),F.y-12);
+      }
+      veil(0.25);
+    }
+    function onClick(p){
+      let bk=0,bd=Infinity;
+      for(let k=0;k<NR;k++){const d=Math.abs(rowY(k)-p.y);if(d<bd){bd=d;bk=k}}
+      if(bk===A.k)return;
+      opps.forEach(o=>{if(!o.done&&o!==tgt)o.done=1});
+      opps.unshift({k:bk,x:Math.max(X0()+20,Math.min(W-30,p.x)),g:0,reach:Math.abs(bk-A.k)<=1,done:0,age:0});
+    }
+    function stat(){
+      return '<span>In the data: entry is <b>6–13×</b> more likely in a firm’s own industry than with no market tie</span>'+
+        '<span class="k">technological relatedness: no effect on entry</span>';
+    }
+    const api={build,step,draw,onClick,stat,
+      short:'Firms move freely across technologies but stay anchored in their markets.',
+      caption:'Searching for new product markets. The firm (red) is anchored in the markets it already serves: it moves freely across technologies, but can only step into adjacent markets. After entering, it fills technology gaps, first through alliances, then its own patents. Click to raise a new opportunity.',
+      cite:{text:'Chang, Eggers & Keum (2021), Organization Science',href:'https://doi.org/10.1287/orsc.2021.1479'}};
+    return api;
+  }
+
+  /* ================= Visual 7: same designation, different reach ================= */
+  function Access(){
+    const GOLD='232,178,82',NP=72,CYCLE=980,CERT_AT=200,CERT_END=820;
+    let D,pats,pills,t,cyc,cert,certA,pulse,fadeA;
+    const cx=()=>staged?W*0.42:W<820?W*0.62:W*0.79;
+    function build(){
+      t=0;cyc=0;cert=0;certA=0;pulse=0;fadeA=0;
+      D=[{ent:0,y:H*(staged?0.32:0.36),cash:1,R:40,tag:'',tagT:0,name:'established firm'},
+         {ent:1,y:H*(staged?0.74:0.6),cash:0.15,R:24,tag:'',tagT:0,name:'entrepreneurial firm'}];
+      pats=[];for(let i=0;i<NP;i++)pats.push(newPat());
+      pills=[];D.forEach(d=>d.emitT=20);
+    }
+    function newPat(){
+      const x0=W<820?W*0.05:W*0.62,g=()=>(Math.random()+Math.random()+Math.random()-1.5)/1.5;
+      return {x:Math.max(x0,Math.min(W-12,cx()+g()*(W-x0)*0.55)),   /* the crowd gathers around the drugs */y:staged?H*(0.08+Math.random()*0.84):H*(0.22+Math.random()*0.42),vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,sv:-1,pend:0,lit:0,a:0};
+    }
+    function radius(d){const will=cert?1:0.3,s=Math.min(1,H/760);return (24+124*will*Math.min(1,d.cash))*Math.max(0.6,s)}   /* willingness times the resources to act on it */
+    function step(){
+      t++;cyc++;if(pulse>0)pulse-=0.015;
+      if(cyc===CERT_AT){
+        cert=1;pulse=1;
+        D[0].tag='designated: opens wide';D[0].tagT=0;
+        D[1].tag='designated: barely opens';D[1].tagT=0;
+      }
+      if(cyc>=CERT_END){fadeA-=0.025;if(fadeA<=0){build();return}}   /* fade out and start over, rather than shrink */
+      else fadeA=Math.min(1,fadeA+0.03);
+      certA+=((cert?1:0)-certA)*0.06;
+      D.forEach(d=>{
+        d.tagT++;
+        d.R+=(radius(d)-d.R)*0.04;
+      });
+      const X=cx();
+      pats.forEach(q=>{
+        q.a=Math.min(1,q.a+0.02);
+        if(q.sv>=0){q.lit=Math.min(1,q.lit+0.05);q.vx*=0.9;q.vy*=0.9}
+        else{q.vx+=(Math.random()-0.5)*0.03;q.vy+=(Math.random()-0.5)*0.03;q.vx*=0.96;q.vy*=0.96}
+        q.x+=q.vx;q.y+=q.vy;
+        const x0=W<820?W*0.05:W*0.62;
+        if(q.x<x0||q.x>W-8)q.vx*=-1;if(q.y<H*(staged?0.06:0.2)||q.y>H*(staged?0.94:0.66))q.vy*=-1;
+      });
+      D.forEach((d,i)=>{                                    /* the firm sends its drug to patients within reach */
+        if(--d.emitT>0)return;
+        d.emitT=7+Math.random()*7;
+        const inside=pats.filter(q=>q.sv<0&&!q.pend&&(X-q.x)**2+(d.y-q.y)**2<d.R*d.R);
+        if(!inside.length)return;
+        const q=inside[Math.floor(Math.random()*inside.length)];q.pend=1;
+        pills.push({i,q,t:0,dur:36+Math.hypot(X-q.x,d.y-q.y)*0.25});
+      });
+      for(let j=pills.length-1;j>=0;j--){const pl=pills[j];pl.t++;if(pl.t>=pl.dur){pl.q.sv=pl.i;pl.q.pend=0;pills.splice(j,1)}}
+    }
+    function star(x,y,r,a){
+      ctx.fillStyle=`rgba(${GOLD},${a})`;ctx.beginPath();
+      for(let i=0;i<10;i++){const rr=i%2?r*0.45:r,an=-Math.PI/2+i*Math.PI/5;ctx.lineTo(x+rr*Math.cos(an),y+rr*Math.sin(an))}
+      ctx.closePath();ctx.fill();
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      ctx.globalAlpha=reduced?1:Math.max(0,fadeA);
+      const X=cx();
+      /* patients: small figures, lit when they get access */
+      pats.forEach(q=>{
+        const lit=q.sv>=0,a=(0.45+0.5*q.lit)*q.a,rgb=lit?(D[q.sv].ent?ACC:'255,255,255'):'255,255,255';
+        if(lit){ctx.shadowColor=`rgba(${rgb},0.9)`;ctx.shadowBlur=8*q.lit}
+        ctx.fillStyle=`rgba(${rgb},${a})`;
+        ctx.beginPath();ctx.arc(q.x,q.y-4,2.4,0,Math.PI*2);ctx.fill();
+        ctx.beginPath();ctx.ellipse(q.x,q.y+3.2,4.2,3.4,0,Math.PI,0);ctx.fill();ctx.shadowBlur=0;
+      });
+      /* pills on their way to patients */
+      pills.forEach(pl=>{
+        const d=D[pl.i],u=ease(pl.t/pl.dur),x=X+(pl.q.x-X)*u,y=d.y+(pl.q.y-d.y)*u,an=Math.atan2(pl.q.y-d.y,pl.q.x-X);
+        const rgb=d.ent?ACC:'255,255,255';
+        ctx.save();ctx.translate(x,y);ctx.rotate(an);ctx.fillStyle=`rgba(${rgb},0.95)`;
+        ctx.beginPath();ctx.roundRect?ctx.roundRect(-4,-1.8,8,3.6,1.8):ctx.rect(-4,-1.8,8,3.6);ctx.fill();ctx.restore();
+      });
+      if(pats.length){                                               /* name the crowd once */
+        let lq=null;pats.forEach(q=>{if(q.sv<0&&q.a>0.9&&q.y>H*0.4&&(!lq||q.x<lq.x))lq=q});
+        if(lq){ctx.font='500 10px "JetBrains Mono", monospace';ctx.textAlign='left';ctx.textBaseline='middle';
+          ctx.fillStyle='rgba(255,255,255,0.55)';ctx.fillText('patients waiting',lq.x+9,lq.y)}
+      }
+      D.forEach(d=>{
+        const rgb=d.ent?ACC:'255,255,255';
+        /* the door: how far access reaches */
+        const g=ctx.createRadialGradient(X,d.y,4,X,d.y,d.R);
+        g.addColorStop(0,`rgba(${rgb},0.16)`);g.addColorStop(1,`rgba(${rgb},0)`);
+        ctx.fillStyle=g;ctx.beginPath();ctx.arc(X,d.y,d.R,0,Math.PI*2);ctx.fill();
+        ctx.strokeStyle=`rgba(${rgb},0.6)`;ctx.lineWidth=1.2;ctx.setLineDash([3,4]);
+        ctx.beginPath();ctx.arc(X,d.y,d.R,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+        /* the drug */
+        ctx.fillStyle=`rgba(${rgb},0.97)`;ctx.shadowColor=`rgba(${rgb},0.85)`;ctx.shadowBlur=12;
+        ctx.beginPath();ctx.roundRect?ctx.roundRect(X-12,d.y-5,24,10,5):ctx.rect(X-12,d.y-5,24,10);ctx.fill();ctx.shadowBlur=0;
+        if(certA>0.02)star(X,d.y-17,6+4*Math.max(0,pulse),0.95*certA);
+        /* resources and slack on hand */
+        const bw=36,bx=X-bw/2,by=d.y+13;
+        ctx.strokeStyle=`rgba(${rgb},0.55)`;ctx.lineWidth=1;ctx.strokeRect(bx,by,bw,4);
+        ctx.fillStyle=`rgba(${rgb},0.9)`;ctx.fillRect(bx+1,by+1,(bw-2)*Math.min(1,d.cash),2);
+        ctx.font='500 10px "JetBrains Mono", monospace';ctx.textBaseline='middle';ctx.textAlign='right';
+        ctx.fillStyle='rgba(255,255,255,0.45)';ctx.fillText('resources',bx-6,by+2);
+        /* who it is */
+        ctx.font='500 11px "JetBrains Mono", monospace';ctx.textAlign='left';ctx.textBaseline='middle';
+        ctx.fillStyle=d.ent?`rgba(${ACC},0.85)`:'rgba(255,255,255,0.7)';
+        const nx=Math.min(X+d.R+10,W-ctx.measureText(d.name).width-14);
+        ctx.fillText(d.name,Math.max(X+20,nx),d.y);
+        if(d.tag){
+          const a=Math.min(1,d.tagT/20);
+          ctx.font='500 12px "JetBrains Mono", monospace';ctx.textAlign='center';ctx.textBaseline='bottom';
+          ctx.fillStyle=d.ent?`rgba(${ACC},${a})`:`rgba(255,255,255,${0.9*a})`;
+          ctx.fillText(d.tag,Math.min(X,W-ctx.measureText(d.tag).width/2-12),d.y-Math.max(d.R,30)-8);
+        }
+      });
+      if(pulse>0){ctx.strokeStyle=`rgba(${GOLD},${0.6*pulse})`;ctx.lineWidth=1.4;D.forEach(d=>{ctx.beginPath();ctx.arc(X,d.y,14+(1-pulse)*50,0,Math.PI*2);ctx.stroke()})}
+      ctx.font='500 10px "JetBrains Mono", monospace';ctx.textAlign='right';ctx.textBaseline='bottom';
+      ctx.fillStyle=`rgba(${GOLD},0.85)`;ctx.fillText('★ FDA designation',W-18,H*0.16);
+      veil(0.25);
+      ctx.globalAlpha=1;
+    }
+    function onClick(p){                                              /* fund the young firm */
+      const d=D[1];d.cash=0.95;d.tag='funded: now it can open';d.tagT=0;
+    }
+    function stat(){
+      return '<span>In the data: only <b>4.4%</b> of oncology drugs were offered early access</span>'+
+        '<span class="k">entrepreneurial firms about half as likely · FDA designation about 3× more likely, less so for entrepreneurial firms</span>';
+    }
+    const api={build,step,draw,onClick,stat,
+      short:'The same FDA designation opens the door wide for some firms and barely for others.',
+      caption:'Patients outside clinical trials (figures) wait for early access to cancer drugs. When both drugs receive an FDA designation (gold star), the established firm (white) opens the door wide and sends its drug to many; the entrepreneurial firm (red), with few resources to bear the cost, barely opens it. Click to fund the young firm.',
+      cite:{text:'Chang & Kang, working paper (R&R, Strategic Management Journal)',href:'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4885005'}};
+    return api;
+  }
+
+  /* ================= Visual 8: wide pay ranges, narrow choices ================= */
+  function PayRange(){
+    const GOLD='232,178,82',PER_ROW=6,CAP=30,PHASE=760;
+    let cols,walk,t,pt,info,spawnT,fadeA,next;
+    const X0=()=>W<820?W*0.08:W*0.62;
+    const X1=()=>W-30;
+    const colX=k=>X0()+(X1()-X0())*(k?0.74:0.26);
+    function build(keepInfo){
+      t=0;pt=0;spawnT=10;fadeA=0;walk=[];next=null;
+      if(!keepInfo)info=0;
+      cols=[{lo:55,hi:75,name:'narrow range',pay:'$55–75k',pile:[]},{lo:40,hi:90,name:'wide range',pay:'$40–90k',pile:[]}];
+    }
+    const barY=()=>H*0.42,baseY=()=>barY()+62;   /* centred vertically in the hero */
+    function slot(k,i){const r=Math.floor(i/PER_ROW),c=i%PER_ROW;return {x:colX(k)+(c-(PER_ROW-1)/2)*20,y:baseY()+r*20}}   /* the queue hangs just under its posting */
+    function step(){
+      t++;pt++;
+      if(next!==null){fadeA-=0.03;if(fadeA<=0){const n=next;build(true);info=n;}return}
+      fadeA=Math.min(1,fadeA+0.03);
+      if(pt>PHASE){next=1-info;return}                           /* alternate: without, then with pay information */
+      const total=cols[0].pile.length+cols[1].pile.length+walk.length;
+      if(--spawnT<=0&&total<CAP*2-4){
+        const risk=Math.random()<0.5;                             /* red: more risk-averse applicants */
+        const pNarrow=info?0.5:(risk?0.86:0.24);
+        const k=Math.random()<pNarrow?0:1;
+        if(cols[k].pile.length+walk.filter(w=>w.k===k).length<CAP){
+          const idx=cols[k].pile.length+walk.filter(w=>w.k===k).length;
+          walk.push({k,risk,idx,x:(colX(0)+colX(1))/2+(Math.random()-0.5)*60,y:H*0.86,t:0});   /* applicants walk up from below */
+        }
+        spawnT=14+Math.random()*10;
+      }
+      for(let i=walk.length-1;i>=0;i--){
+        const w=walk[i],s=slot(w.k,w.idx);w.t++;
+        const sp=0.055;w.x+=(s.x-w.x)*sp;w.y+=(s.y-w.y)*sp;
+        if(Math.abs(w.x-s.x)<0.8&&Math.abs(w.y-s.y)<0.8){cols[w.k].pile.push({risk:w.risk});walk.splice(i,1)}
+      }
+    }
+    function person(x,y,rgb,a){
+      ctx.fillStyle=`rgba(${rgb},${a})`;
+      ctx.beginPath();ctx.arc(x,y-4.5,3,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.ellipse(x,y+4,5,4,0,Math.PI,0);ctx.fill();
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      ctx.globalAlpha=reduced?1:Math.max(0,fadeA);
+      const by=barY(),span=(X1()-X0())*0.36;
+      ctx.font='500 11px "JetBrains Mono", monospace';
+      cols.forEach((C,k)=>{
+        const cx=colX(k),w=span*(C.hi-C.lo)/50;
+        /* the posted range, centred on the same midpoint */
+        ctx.fillStyle='rgba(255,255,255,0.14)';ctx.strokeStyle='rgba(255,255,255,0.75)';ctx.lineWidth=1.2;
+        ctx.beginPath();ctx.roundRect?ctx.roundRect(cx-w/2,by-6,w,12,6):ctx.rect(cx-w/2,by-6,w,12);ctx.fill();ctx.stroke();
+        ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillStyle='rgba(255,255,255,0.85)';
+        ctx.fillText(C.name,cx,by-14);
+        ctx.textBaseline='top';ctx.fillStyle='rgba(255,255,255,0.55)';ctx.fillText(C.pay,cx,by+12);
+        if(info){
+          const a=Math.min(1,pt/40);
+          ctx.strokeStyle=`rgba(${GOLD},${a})`;ctx.lineWidth=2;
+          ctx.beginPath();ctx.moveTo(cx,by-10);ctx.lineTo(cx,by+10);ctx.stroke();
+          ctx.fillStyle=`rgba(${GOLD},${0.95*a})`;ctx.fillText('typical offer $65k',cx,by+27);
+        }
+        /* who applied */
+        C.pile.forEach((q,i)=>{const s=slot(k,i);person(s.x,s.y,q.risk?ACC:'255,255,255',0.92)});
+      });
+      walk.forEach(w=>person(w.x,w.y,w.risk?ACC:'255,255,255',0.92));
+      /* which world we are in */
+      ctx.textAlign='center';ctx.textBaseline='bottom';ctx.font='500 12px "JetBrains Mono", monospace';
+      ctx.fillStyle=info?`rgba(${GOLD},0.95)`:'rgba(255,255,255,0.75)';
+      ctx.fillText(info?'postings say where offers typically land':'postings give only the range',(colX(0)+colX(1))/2,barY()-42);
+      ctx.font='500 10px "JetBrains Mono", monospace';ctx.textAlign='right';ctx.textBaseline='top';
+      ctx.fillStyle=`rgba(${ACC},0.9)`;ctx.fillText('● more risk-averse',X1(),baseY()+112);
+      ctx.fillStyle='rgba(255,255,255,0.7)';ctx.fillText('● less risk-averse',X1(),baseY()+126);
+      veil(0.25);
+      ctx.globalAlpha=1;
+    }
+    function onClick(){if(next===null)next=1-info}
+    function stat(){
+      return '<span>Field experiment: a narrow range drew <b>79.5%</b> of women vs. 68.9% of men; a wide range, 75.2% vs. 76.1%</span>';
+    }
+    const api={build:()=>build(false),step,draw,onClick,stat,
+      short:'Wide pay ranges steer more risk-averse applicants toward narrow ones, unless postings say where offers typically land.',
+      caption:'Two job postings with the same midpoint. When postings give only the range, more risk-averse applicants (red) sort into the narrow one; those who choose narrow ranges also negotiate less. Women are on average more risk-averse, so wide ranges can help perpetuate gender pay gaps. When postings say where offers typically land, the sorting fades. Click to switch.',
+      cite:{text:'Lee, Park & Chang (2026), Journal of Applied Psychology',href:'https://doi.org/10.1037/apl0001360'}};
+    return api;
+  }
+
   /* ================= engine ================= */
-  const registry=[Diffusion(),Landscape(),Race()]; /* Flow() kept in code but unregistered for now */
+  const registry=[Bridges(),Portfolio(),Access(),Wildcatters(),Bottleneck(),CatchUp(),Dram(),PayRange()]; /* Flow() and Landscape() kept in code but unregistered */
   function activate(i){
     current=registry[i];
     sizeCanvas();
     current.build();
-    captionEl.textContent=current.caption;
+    captionEl.textContent=current.short||current.caption;
+    longEl.textContent=current.caption;
+    nameEl.textContent=btns[i].dataset.name;nameEl.classList.remove('peek');
+    if(current.cite&&current.cite.href){citeEl.innerHTML='<a href="'+current.cite.href+'" target="_blank" rel="noopener">'+current.cite.text+' \u2197</a>';citeEl.style.display=''}
+    else if(current.cite){citeEl.textContent=current.cite.text;citeEl.style.display=''}
+    else{citeEl.textContent='';citeEl.style.display='none'}
     btns.forEach(b=>b.classList.toggle('on',+b.dataset.v===i));
     if(reduced){for(let k=0;k<700;k++)current.step();current.draw();}
+    if(current.stat){statEl.innerHTML=current.stat();statEl.style.display=''}else{statEl.innerHTML='';statEl.style.display='none'}
   }
   btns.forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();activate(+b.dataset.v)}));
+  btns.forEach(b=>{                                   /* hovering a number previews its name */
+    b.addEventListener('mouseenter',()=>{nameEl.textContent=b.dataset.name;nameEl.classList.toggle('peek',!b.classList.contains('on'))});
+    b.addEventListener('mouseleave',()=>{const on=document.querySelector('.vis-switch button.on');if(on){nameEl.textContent=on.dataset.name;nameEl.classList.remove('peek')}});
+  });
   function toLocal(e){
-    const r=wrap.getBoundingClientRect();
-    return {x:e.clientX-r.left,y:e.clientY-r.top};
+    const r=cv.getBoundingClientRect();
+    return {x:e.clientX-r.left,y:e.clientY-r.top,inside:e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom};
   }
   wrap.addEventListener('mousemove',e=>{const p=toLocal(e);mouse.x=p.x;mouse.y=p.y;mouse.on=true});
   wrap.addEventListener('mouseleave',()=>{mouse.on=false});
   wrap.addEventListener('click',e=>{
-    if(e.target.closest('a,button'))return;
-    current.onClick(toLocal(e));
+    if(e.target.closest('a,button,.vis-bar'))return;
+    const p=toLocal(e);if(staged&&!p.inside)return;
+    current.onClick(p);
   });
-  let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>activate(registry.indexOf(current)),200)});
+  let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{placeCanvas();activate(registry.indexOf(current))},200)});
   activate(Math.floor(Math.random()*registry.length));   /* random visual per visit */
   if(!reduced){
-    (function loop(){trackMouse();current.step();current.draw();requestAnimationFrame(loop)})();
+    let fr=0;
+    (function loop(){trackMouse();current.step();current.draw();
+      if(current.stat&&++fr%20===0)statEl.innerHTML=current.stat();
+      requestAnimationFrame(loop)})();
   }
 })();
 </script>
